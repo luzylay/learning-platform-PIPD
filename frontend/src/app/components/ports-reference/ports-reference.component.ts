@@ -73,7 +73,17 @@ export class PortsReferenceComponent {
     { number: 5000, protocol: 'TCP', name: 'ASP.NET API', category: 'Web', description: 'Puerto por defecto de lanzamiento local para Web APIs de .NET.', cvContext: 'Establecido como puerto por defecto para nuestra API local OIT-1.' },
     { number: 8000, protocol: 'TCP', name: 'FastAPI / Django', category: 'Web', description: 'Puerto de desarrollo por defecto para servicios web Python.', cvContext: 'Puerto que asignamos a nuestro microservicio FastAPI local.' },
     { number: 5432, protocol: 'TCP', name: 'PostgreSQL', category: 'Database', description: 'Base de datos relacional avanzada de código abierto.', cvContext: 'Usado en AWS Aurora RDS PostgreSQL para persistencia transaccional y examen OIT-1.' },
-    { number: 6379, protocol: 'TCP', name: 'Redis', category: 'Database', description: 'Almacén de datos en memoria en caché de alto rendimiento.', cvContext: 'Utilizado para almacenar sesiones y reducir latencias vía AWS ElastiCache.' }
+    { number: 6379, protocol: 'TCP', name: 'Redis', category: 'Database', description: 'Almacén de datos en memoria en caché de alto rendimiento.', cvContext: 'Utilizado para almacenar sesiones y reducir latencias vía AWS ElastiCache.' },
+
+    // Cloud, Containers & Big Data Enterprise Ports
+    { number: 1521, protocol: 'TCP', name: 'Oracle DB', category: 'Database', description: 'Puerto de conexión por defecto del motor de base de datos relacional empresarial Oracle.', cvContext: 'Sistemas legacy de core bancario y procesamiento batch corporativo.' },
+    { number: 2375, protocol: 'TCP', name: 'Docker API', category: 'Security/Admin', description: 'Docker Engine Remote API sin cifrar (Daemon REST API).', cvContext: 'Debe ser asegurado con TLS (2376); exposición riesgosa en redes corporativas.' },
+    { number: 2376, protocol: 'TCP', name: 'Docker API TLS', category: 'Security/Admin', description: 'Docker Engine Remote API cifrado con certificados TLS.', cvContext: 'Gestión remota segura de demonios Docker en clústeres de servidores.' },
+    { number: 5672, protocol: 'TCP', name: 'RabbitMQ AMQP', category: 'Core', description: 'Advanced Message Queuing Protocol para intermediario de mensajes (Broker).', cvContext: 'Desacoplamiento asíncrono de eventos y microservicios en banca transaccional.' },
+    { number: 6443, protocol: 'TCP', name: 'K8s API Server', category: 'Security/Admin', description: 'Kubernetes API Server Endpoint para administración de clústeres.', cvContext: 'Punto neurálgico de control en entornos AWS EKS / Azure AKS para orquestación de Pods.' },
+    { number: 9092, protocol: 'TCP', name: 'Apache Kafka', category: 'Core', description: 'Puerto por defecto para agentes de transmisión de eventos distribuidos Kafka (Brokers).', cvContext: 'Ingesta masiva de telemetría de sensores IoT y procesamiento de Big Data en tiempo real.' },
+    { number: 9200, protocol: 'TCP', name: 'Elasticsearch', category: 'Database', description: 'Motor de búsqueda y analítica distribuida NoSQL RESTful.', cvContext: 'Centralización e indexación de logs de infraestructura en la pila ELK (Elasticsearch, Logstash, Kibana).' },
+    { number: 27017, protocol: 'TCP', name: 'MongoDB', category: 'Database', description: 'Puerto estándar del servidor de base de datos NoSQL orientada a documentos BSON.', cvContext: 'Almacenamiento flexible de catálogos y esquemas de datos no estructurados en la nube.' }
   ];
 
   get filteredPorts(): NetworkPort[] {
