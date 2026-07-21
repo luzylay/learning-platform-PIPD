@@ -50,6 +50,9 @@
     <!-- Progress Header -->
     <div class="exam-header">
       <span class="badge badge-primary">{{ questions[currentQuestionIndex].syllabusConcept }}</span>
+      <span class="badge badge-info" *ngIf="questions[currentQuestionIndex].topicCode" style="margin-left: 0.5rem; background-color: #0284c7; color: #ffffff;">
+        <i class="fa-solid fa-book-open"></i> Sustento: Tema {{ questions[currentQuestionIndex].topicCode }}
+      </span>
       <span class="progress-text">Pregunta {{ currentQuestionIndex + 1 }} de {{ questions.length }}</span>
     </div>
 
