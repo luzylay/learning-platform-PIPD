@@ -1,0 +1,183 @@
+<div class="ports-container">
+  <!-- Header -->
+  <section class="page-header glass-panel">
+    <h1>Puertos y Protocolos por Defecto</h1>
+    <p>Guía de referencia rápida y simulador de escaneo de puertos de red comunes (TCP/UDP, Puertos Web, Nmap) requeridos para el examen OIT 1 y arquitectura de servidores en la nube.</p>
+  </section>
+
+  <!-- TCP vs UDP Concept Cards Section -->
+  <section class="proto-compare-section glass-panel">
+    <h2><i class="fa-solid fa-network-wired icon-blue"></i> Fundamentos de Redes: TCP vs UDP</h2>
+    <p class="caption" style="margin-bottom: 1.2rem;">Antes de memorizar los puertos, debes entender bajo qué protocolo de transporte de la Capa 4 del Modelo OSI operan y por qué.</p>
+    
+    <div class="compare-grid">
+      <!-- TCP Card -->
+      <div class="compare-card tcp-style">
+        <div class="card-header">
+          <span class="proto-indicator tcp-badge">TCP</span>
+          <h3>Transmission Control Protocol</h3>
+        </div>
+        <div class="card-body">
+          <p class="desc"><strong>Orientado a Conexión:</strong> Establece un canal de comunicación bidireccional mediante una negociación en tres pasos (<em>3-way handshake</em>: SYN, SYN-ACK, ACK) antes de enviar datos.</p>
+          <ul>
+            <li><i class="fa-solid fa-circle-check text-green"></i> <strong>Garantía de Entrega:</strong> Si un paquete se pierde, se retransmite automáticamente (cero pérdida de información).</li>
+            <li><i class="fa-solid fa-circle-check text-green"></i> <strong>Control de Orden:</strong> Los paquetes se reensamblan en el orden correcto original en el destino.</li>
+            <li><i class="fa-solid fa-circle-xmark text-red"></i> <strong>Sobrecarga (Overhead):</strong> Más lento debido al control de errores y confirmaciones constantes (cabecera de 20 bytes).</li>
+          </ul>
+          <div class="analogy-box">
+            <strong><i class="fa-solid fa-lightbulb icon-gold"></i> Analogía de la vida real:</strong><br>
+            Una llamada por teléfono convencional. Marcas, la otra persona atiende y dice "Aló" (negociación), conversas asegurándote de que escuche cada palabra, y al final se despiden formalmente y cuelgan. Si no entendió una frase, le pides que la repita.
+          </div>
+        </div>
+      </div>
+
+      <!-- UDP Card -->
+      <div class="compare-card udp-style">
+        <div class="card-header">
+          <span class="proto-indicator udp-badge">UDP</span>
+          <h3>User Datagram Protocol</h3>
+        </div>
+        <div class="card-body">
+          <p class="desc"><strong>No Orientado a Conexión:</strong> Envía paquetes de datos (datagramas) directamente al destinatario sin verificar si está encendido, conectado o si recibió los datos.</p>
+          <ul>
+            <li><i class="fa-solid fa-circle-xmark text-red"></i> <strong>Sin Garantía:</strong> Si un paquete se pierde en el camino, se pierde para siempre (sin retransmisión).</li>
+            <li><i class="fa-solid fa-circle-xmark text-red"></i> <strong>Sin Orden:</strong> Los paquetes pueden llegar desordenados o duplicados (el que tome la ruta física de red más rápida).</li>
+            <li><i class="fa-solid fa-circle-check text-green"></i> <strong>Velocidad Extrema:</strong> Ideal para streaming de video, voz sobre IP (VoIP) y videojuegos donde perder un fotograma no importa, pero la velocidad sí (cabecera ligera de 8 bytes).</li>
+          </ul>
+          <div class="analogy-box">
+            <strong><i class="fa-solid fa-lightbulb icon-gold"></i> Analogía de la vida real:</strong><br>
+            Un anuncio por megáfono o arrojar folletos desde una avioneta. Solo lanzas la información al aire; no verificas quién la atrapó ni te importa si el viento se llevó algunos papeles, pero alcanzas a todos de golpe de forma instantánea.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Search and Grid -->
+  <div class="split-layout">
+    <!-- Left Column: Ports Database -->
+    <div class="left-column">
+      <section class="db-card glass-panel">
+        <div class="db-header">
+          <h2>Directorio de Puertos Frecuentes</h2>
+          <p class="caption">Filtra y busca descripciones de los puertos que debes saber por defecto.</p>
+        </div>
+
+        <!-- Filters Row -->
+        <div class="filters-row">
+          <input type="text" class="input-glass search-input" placeholder="Buscar puerto, protocolo o descripción..." [(ngModel)]="searchQuery">
+          
+          <select class="input-glass category-select" [(ngModel)]="selectedCategory">
+            <option value="All">Todas las categorías</option>
+            <option value="Core">Core TCP/UDP (Must-Know)</option>
+            <option value="Web">Puertos Web / API</option>
+            <option value="Database">Bases de Datos</option>
+            <option value="Security/Admin">Seguridad / Admins</option>
+          </select>
+        </div>
+
+        <!-- Ports List Table -->
+        <div class="table-wrapper">
+          <table class="ports-table">
+            <thead>
+              <tr>
+                <th style="width: 80px;">Puerto</th>
+                <th style="width: 90px;">Protocolo</th>
+                <th style="width: 120px;">Servicio</th>
+                <th>Definición Académica</th>
+                <th>Aplicación en AWS / Banca</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let port of filteredPorts">
+                <td><span class="port-badge">{{ port.number }}</span></td>
+                <td><span class="proto-badge" [class.udp]="port.protocol.includes('UDP')">{{ port.protocol }}</span></td>
+                <td class="port-name"><strong>{{ port.name }}</strong></td>
+                <td class="port-desc">{{ port.description }}</td>
+                <td class="port-cv">{{ port.cvContext }}</td>
+              </tr>
+              <tr *ngIf="filteredPorts.length === 0">
+                <td colspan="5" class="text-center" style="padding: 2rem; color: var(--text-muted);">
+                  Ningún puerto coincide con tu búsqueda.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- Right Column: Nmap Security Simulator -->
+    <div class="right-column">
+      <!-- Nmap Console Card -->
+      <section class="nmap-card glass-panel">
+        <h2><i class="fa-solid fa-terminal" style="color: var(--secondary); margin-right: 0.5rem;"></i> Consola Nmap Simulator</h2>
+        <p class="caption">Selecciona un objetivo y tipo de escaneo para simular comandos reales de auditoría de red.</p>
+
+        <div class="nmap-controls">
+          <div class="form-field">
+            <label>IP / Servidor Objetivo:</label>
+            <select class="input-glass" [(ngModel)]="scanTarget">
+              <option value="192.168.1.100">192.168.1.100 (Host Bastión AWS)</option>
+              <option value="servidor-banca.local">servidor-banca.local (Core de Datos)</option>
+              <option value="10.0.4.15">10.0.4.15 (Instancia de Base de Datos)</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label>Tipo de Escaneo (Bandera):</label>
+            <select class="input-glass" [(ngModel)]="scanType">
+              <option value="-sS">-sS (TCP SYN Scan - Más común)</option>
+              <option value="-sU">-sU (UDP Scan - Para DNS/NTP)</option>
+              <option value="-A">-A (Aggressive Scan - Detección de OS)</option>
+            </select>
+          </div>
+
+          <button class="btn-primary" (click)="runSimulatedScan()" [disabled]="isScanning" style="margin-top: 1rem; width: 100%; justify-content: center;">
+            <i class="fa-solid" [class.fa-play]="!isScanning" [class.fa-spinner]="isScanning" [class.fa-spin]="isScanning"></i>
+            {{ isScanning ? 'Escaneando Puertos...' : 'Ejecutar Escaneo de Nmap' }}
+          </button>
+        </div>
+
+        <!-- Terminal Output Screen -->
+        <div class="terminal-screen">
+          <div class="terminal-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="title">bash - nmap terminal</span>
+          </div>
+          <div class="terminal-body">
+            <div class="log-line" *ngFor="let log of scanLogs">{{ log }}</div>
+            <div class="log-line prompt" *ngIf="!isScanning && scanLogs.length === 0">
+              $ nmap -sS -T4 target_ip... (Haz clic en Ejecutar para escanear)
+            </div>
+            <div class="log-line cursor" *ngIf="isScanning">_</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Advanced Reference Cards -->
+      <section class="reference-card glass-panel" style="margin-top: 1.5rem;">
+        <h3>Comandos Útiles de Nmap y Seguridad</h3>
+        
+        <div class="command-reference">
+          <div class="ref-item">
+            <strong>Escaneo de los 100 puertos TCP principales (Q1-Nmap)</strong>
+            <pre><code>nmap --top-ports 100 target_ip</code></pre>
+          </div>
+          
+          <div class="ref-item">
+            <strong>Escaneo de Puertos Web HTTPX</strong>
+            <pre><code>httpx -l urls.txt -ports 80,443,8080,8000,5000 -status-code</code></pre>
+          </div>
+
+          <div class="ref-item">
+            <strong>Escaneo de los 1000 puertos TCP más populares</strong>
+            <pre><code>nmap -sS --top-ports 1000 target_ip</code></pre>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

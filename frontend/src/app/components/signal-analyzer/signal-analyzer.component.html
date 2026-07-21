@@ -1,0 +1,99 @@
+<div class="signal-container">
+  <!-- Header -->
+  <section class="page-header glass-panel">
+    <h1>Analizador de Señales y Transformadas</h1>
+    <p>Genere señales complejas compuestas por múltiples armónicos, agregue ruido aleatorio y aplique transformadas de Fourier y filtros pasa-bajos usando SciPy.</p>
+  </section>
+
+  <!-- Interactive Controls & Charts Grid -->
+  <div class="main-grid">
+    <!-- Controls Panel -->
+    <section class="controls-panel glass-panel">
+      <h2>Parámetros de la Señal</h2>
+      <p class="caption">Modifica las frecuencias y el nivel de ruido, luego haz clic en "Procesar Señal" para recalcular.</p>
+
+      <div class="control-group">
+        <label>Frecuencia de Onda 1 (Hz): {{ freq1 }}</label>
+        <input type="range" class="slider" min="0.5" max="5.0" step="0.1" [(ngModel)]="freq1" (change)="generateAndProcessSignal()">
+      </div>
+
+      <div class="control-group">
+        <label>Frecuencia de Onda 2 (Hz): {{ freq2 }}</label>
+        <input type="range" class="slider" min="5.0" max="15.0" step="0.5" [(ngModel)]="freq2" (change)="generateAndProcessSignal()">
+      </div>
+
+      <div class="control-group">
+        <label>Amplitud de Ruido: {{ noise }}</label>
+        <input type="range" class="slider" min="0.0" max="2.0" step="0.1" [(ngModel)]="noise" (change)="generateAndProcessSignal()">
+      </div>
+
+      <div class="control-group">
+        <label>Frecuencia de Corte del Filtro (Hz): {{ cutoff }}</label>
+        <input type="range" class="slider" min="0.5" max="5.0" step="0.1" [(ngModel)]="cutoff" (change)="generateAndProcessSignal()">
+      </div>
+
+      <button class="btn-primary" (click)="generateAndProcessSignal()" [disabled]="isProcessing" style="width: 100%; justify-content: center; margin-top: 1rem;">
+        <i class="fa-solid fa-sync" [class.fa-spin]="isProcessing"></i>
+        Procesar con SciPy
+      </button>
+    </section>
+
+    <!-- Visualizations Panel -->
+    <div class="charts-column">
+      <!-- Time Domain Waveform Chart -->
+      <section class="chart-panel glass-panel">
+        <div class="chart-header">
+          <h3>Señal en el Dominio del Tiempo (Amplitud vs Tiempo)</h3>
+          <div class="chart-legend">
+            <span class="legend-item"><span class="color-dot original"></span> Original + Ruido</span>
+            <span class="legend-item"><span class="color-dot filtered"></span> Filtrada (Pasa-Bajos)</span>
+          </div>
+        </div>
+        <div class="canvas-wrapper">
+          <canvas #timeCanvas width="700" height="240"></canvas>
+        </div>
+        <p class="chart-footer">Muestra el efecto del filtro pasa-bajos de orden 4 para suavizar la señal ruidosa.</p>
+      </section>
+
+      <!-- Frequency Domain Spectrum Chart -->
+      <section class="chart-panel glass-panel">
+        <div class="chart-header">
+          <h3>Espectro de Frecuencia FFT (Amplitud vs Frecuencia)</h3>
+          <div class="chart-legend">
+            <span class="legend-item"><span class="color-dot fft"></span> Picos de Frecuencia</span>
+          </div>
+        </div>
+        <div class="canvas-wrapper">
+          <canvas #freqCanvas width="700" height="200"></canvas>
+        </div>
+        <p class="chart-footer">Muestra los armónicos principales detectados por la Transformada Rápida de Fourier (FFT).</p>
+      </section>
+    </div>
+  </div>
+
+  <!-- Theoretical Reference Section -->
+  <section class="theory-section glass-panel">
+    <h2>Implementación Técnica (SciPy & Pandas)</h2>
+    <p class="subtitle">Código Python real utilizado en el microservicio para resolver las preguntas 10, 14 y 15:</p>
+    
+    <div class="accordion">
+      <div class="accordion-item" *ngIf="scipyFilterInfo">
+        <h3><i class="fa-solid fa-filter icon"></i> Filtro Pasa-Bajos (Pregunta 15)</h3>
+        <p class="desc">Atenúa las frecuencias por encima de la frecuencia de corte normalizada respecto a la frecuencia de Nyquist.</p>
+        <pre><code>{{ scipyFilterInfo.code }}</code></pre>
+      </div>
+
+      <div class="accordion-item" *ngIf="scipyFourierInfo">
+        <h3><i class="fa-solid fa-chart-bar icon"></i> Transformada de Fourier (Pregunta 10)</h3>
+        <p class="desc">Convierte la señal del dominio del tiempo al de frecuencia mediante el algoritmo FFT.</p>
+        <pre><code>{{ scipyFourierInfo.scipy_usage.code }}</code></pre>
+      </div>
+
+      <div class="accordion-item" *ngIf="sensorCodeInfo">
+        <h3><i class="fa-solid fa-laptop-code icon"></i> Monitoreo Serial con Pandas & Matplotlib (Pregunta 14)</h3>
+        <p class="desc">Lectura y acumulación en DataFrame en tiempo real:</p>
+        <pre><code>{{ sensorCodeInfo.code }}</code></pre>
+      </div>
+    </div>
+  </section>
+</div>

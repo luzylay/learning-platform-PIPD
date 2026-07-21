@@ -1,0 +1,337 @@
+/* Exam Practice Component CSS */
+
+.exam-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.page-header {
+  padding: 2rem;
+}
+
+.page-header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.page-header p {
+  color: var(--text-secondary);
+}
+
+/* Split Layout for Portal */
+.split-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 2rem;
+}
+
+@media (max-width: 900px) {
+  .split-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.portal-card {
+  padding: 2rem;
+}
+
+.portal-card h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.caption {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Scoreboard Styling */
+.scoreboard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.score-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid var(--border-glass);
+  font-size: 0.88rem;
+}
+
+.score-row.header {
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.score-row:not(.header):hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.score-row .user {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.score-row .user i {
+  color: var(--secondary);
+}
+
+.score-row .val {
+  font-weight: 600;
+}
+
+.score-row .date {
+  color: var(--text-muted);
+}
+
+.no-records {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Active Exam Portal */
+.exam-portal {
+  padding: 2.2rem;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.exam-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.progress-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.progress-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  box-shadow: var(--shadow-glow-primary);
+  transition: width 0.3s ease-out;
+}
+
+.question-box h3 {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.option-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.2rem;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-glass);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  position: relative;
+}
+
+.option-item:hover:not(.correct):not(.incorrect) {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.option-item.selected {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.08);
+  box-shadow: var(--shadow-glow-primary);
+}
+
+.option-letter {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-right: 1rem;
+  color: var(--text-secondary);
+}
+
+.option-item.selected .option-letter {
+  background: var(--primary);
+  color: #fff;
+}
+
+.option-text {
+  font-size: 0.95rem;
+  padding-right: 2rem;
+}
+
+/* Correct/Incorrect States */
+.option-item.correct {
+  border-color: var(--success) !important;
+  background: rgba(16, 185, 129, 0.1) !important;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.2) !important;
+}
+
+.option-item.correct .option-letter {
+  background: var(--success) !important;
+  color: #fff !important;
+}
+
+.option-item.incorrect {
+  border-color: var(--danger) !important;
+  background: rgba(239, 68, 68, 0.1) !important;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.2) !important;
+}
+
+.option-item.incorrect .option-letter {
+  background: var(--danger) !important;
+  color: #fff !important;
+}
+
+.check-icon {
+  color: var(--success);
+  position: absolute;
+  right: 1.2rem;
+  font-size: 1.2rem;
+}
+
+.cross-icon {
+  color: var(--danger);
+  position: absolute;
+  right: 1.2rem;
+  font-size: 1.2rem;
+}
+
+/* Explanation & Footer Box */
+.action-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-top: 1px solid var(--border-glass);
+  padding-top: 1.5rem;
+}
+
+.explanation-box {
+  background: rgba(255, 255, 255, 0.01);
+  border-left: 4px solid var(--primary);
+  padding: 1rem 1.2rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.explanation-box strong {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.explanation-box p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+.button-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Results Summary Portal */
+.results-portal {
+  padding: 3rem;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  animation: scaleUp 0.3s ease-out;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.award-icon {
+  font-size: 4rem;
+  color: #f59e0b;
+  text-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+  margin-bottom: 1.5rem;
+}
+
+.score-display {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.circle-chart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.05);
+  border: 4px solid var(--primary);
+  box-shadow: var(--shadow-glow-primary);
+}
+
+.score-value {
+  font-size: 2.2rem;
+  font-weight: 800;
+}
+
+.score-percentage {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+
+.grade-message {
+  margin: 1.5rem 0;
+}
+
+.grade-message h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}

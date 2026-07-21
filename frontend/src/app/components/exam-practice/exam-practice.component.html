@@ -1,0 +1,127 @@
+<div class="exam-container">
+  <!-- Header -->
+  <section class="page-header glass-panel">
+    <h1>Examen Práctico y Autoevaluación</h1>
+    <p>Ponga a prueba sus conocimientos en todos los conceptos teóricos y prácticos de OIT 1. Las puntuaciones se guardan en la base de datos PostgreSQL.</p>
+  </section>
+
+  <!-- Start Portal (Username input + Scoreboard) -->
+  <div class="start-portal split-layout" *ngIf="!hasStarted && !isFinished">
+    <!-- Login Card -->
+    <section class="portal-card glass-panel">
+      <h2>Comenzar Simulacro</h2>
+      <p class="caption">Ingresa tu nombre para registrar tu puntuación en la base de datos al finalizar.</p>
+      
+      <div class="form-field" style="margin-bottom: 1.5rem;">
+        <label for="usernameInput">Nombre del Estudiante:</label>
+        <input type="text" id="usernameInput" class="input-glass" [(ngModel)]="username" placeholder="Ingresa tu nombre...">
+      </div>
+
+      <button class="btn-primary" (click)="startExam()" [disabled]="isLoading" style="width: 100%; justify-content: center;">
+        <i class="fa-solid fa-play"></i> Iniciar Examen (16 Preguntas)
+      </button>
+    </section>
+
+    <!-- Scoreboard Card -->
+    <section class="portal-card glass-panel">
+      <h2><i class="fa-solid fa-trophy" style="color: #f59e0b;"></i> Historial de Intentos (PostgreSQL)</h2>
+      <p class="caption">Últimas puntuaciones registradas en el servidor.</p>
+
+      <div class="scoreboard">
+        <div class="score-row header">
+          <span>Estudiante</span>
+          <span>Puntuación</span>
+          <span>Fecha</span>
+        </div>
+        <div class="score-row" *ngFor="let record of savedScores">
+          <span class="user"><i class="fa-solid fa-user-graduate"></i> {{ record.username }}</span>
+          <span class="val">{{ record.score }} / {{ record.totalQuestions }}</span>
+          <span class="date">{{ record.timestamp | date:'shortTime' }}</span>
+        </div>
+        <div class="no-records" *ngIf="!savedScores || savedScores.length === 0">
+          No hay registros en la base de datos.
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Active Exam Portal -->
+  <section class="exam-portal glass-panel" *ngIf="hasStarted && !isFinished && questions.length > 0">
+    <!-- Progress Header -->
+    <div class="exam-header">
+      <span class="badge badge-primary">{{ questions[currentQuestionIndex].syllabusConcept }}</span>
+      <span class="progress-text">Pregunta {{ currentQuestionIndex + 1 }} de {{ questions.length }}</span>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width.%]="((currentQuestionIndex + 1) / questions.length) * 100"></div>
+    </div>
+
+    <!-- Question Box -->
+    <div class="question-box">
+      <h3>{{ questions[currentQuestionIndex].text }}</h3>
+      
+      <div class="options-list">
+        <div class="option-item" 
+             *ngFor="let opt of questions[currentQuestionIndex].options; let i = index"
+             [class.selected]="selectedOptionIndex === i"
+             [class.correct]="isSubmitted && questions[currentQuestionIndex].correctOptionIndex === i"
+             [class.incorrect]="isSubmitted && selectedOptionIndex === i && questions[currentQuestionIndex].correctOptionIndex !== i"
+             (click)="selectOption(i)">
+          
+          <span class="option-letter">{{ ['A', 'B', 'C', 'D'][i] }}</span>
+          <span class="option-text">{{ opt }}</span>
+          
+          <!-- Icon Indicators -->
+          <i class="fa-solid fa-check check-icon" *ngIf="isSubmitted && questions[currentQuestionIndex].correctOptionIndex === i"></i>
+          <i class="fa-solid fa-xmark cross-icon" *ngIf="isSubmitted && selectedOptionIndex === i && questions[currentQuestionIndex].correctOptionIndex !== i"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feedback & Next Buttons -->
+    <div class="action-footer">
+      <!-- Explanation display after submit -->
+      <div class="explanation-box" *ngIf="isSubmitted">
+        <strong>Explicación:</strong>
+        <p>{{ questions[currentQuestionIndex].explanation }}</p>
+      </div>
+
+      <div class="button-row">
+        <button class="btn-primary" (click)="submitAnswer()" [disabled]="selectedOptionIndex === null || isSubmitted" *ngIf="!isSubmitted">
+          <i class="fa-solid fa-file-shield"></i> Enviar Respuesta
+        </button>
+        <button class="btn-primary" (click)="nextQuestion()" *ngIf="isSubmitted">
+          Siguiente Pregunta <i class="fa-solid fa-arrow-right-long"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final Results Summary Portal -->
+  <section class="results-portal glass-panel text-center" *ngIf="isFinished">
+    <div class="trophy-wrapper animate-float">
+      <i class="fa-solid fa-award award-icon"></i>
+    </div>
+    
+    <h2>¡Examen Finalizado!</h2>
+    <p class="caption">Tu puntuación ha sido guardada exitosamente en la base de datos.</p>
+
+    <div class="score-display">
+      <div class="circle-chart">
+        <div class="score-value">{{ score }} / {{ questions.length }}</div>
+        <div class="score-percentage">{{ ((score / questions.length) * 100) | number:'1.0-0' }}%</div>
+      </div>
+    </div>
+
+    <div class="grade-message">
+      <h3 *ngIf="score >= 13" style="color: #6ee7b7;">¡Excelente Rendimiento! Estás listo para el examen.</h3>
+      <h3 *ngIf="score < 13 && score >= 9" style="color: #fde047;">Buen Trabajo. Repasa los conceptos fallados para asegurar tu nota.</h3>
+      <h3 *ngIf="score < 9" style="color: #fca5a5;">Requiere Repaso. Te recomendamos repasar las transformadas y simulaciones.</h3>
+    </div>
+
+    <button class="btn-primary" (click)="restartExam()" style="margin-top: 2rem;">
+      <i class="fa-solid fa-rotate-left"></i> Volver al Inicio
+    </button>
+  </section>
+</div>

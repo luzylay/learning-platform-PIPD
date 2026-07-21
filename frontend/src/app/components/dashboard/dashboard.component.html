@@ -1,0 +1,165 @@
+<div class="dashboard-container">
+  <!-- Top Intro Section -->
+  <section class="intro-section glass-panel">
+    <div class="intro-content">
+      <h1>OIT 1 - Smart Learning Platform</h1>
+      <p class="subtitle">Plataforma de aprendizaje interactiva de Operaciones e Infraestructura Tecnológica</p>
+      <div class="system-statuses">
+        <div class="status-badge" [class.online]="isConnected">
+          <i class="fa-solid" [class.fa-link]="isConnected" [class.fa-chain-broken]="!isConnected"></i>
+          SignalR: <span>{{ isConnected ? 'CONECTADO' : 'DESCONECTADO' }}</span>
+        </div>
+        <div class="status-badge" [class.online]="apiStatus === 'ONLINE'">
+          <i class="fa-solid fa-server"></i>
+          API Gateway: <span>{{ apiStatus }}</span>
+        </div>
+        <div class="status-badge" [class.online]="pythonStatus === 'ONLINE'">
+          <i class="fa-brands fa-python"></i>
+          FastAPI AI: <span>{{ pythonStatus }}</span>
+        </div>
+      </div>
+      <p class="feed-log"><i class="fa-solid fa-circle-info"></i> {{ systemMessage }}</p>
+    </div>
+  </section>
+
+  <!-- Metrics Grid -->
+  <section class="metrics-grid">
+    <!-- CPU Metric -->
+    <div class="glass-card metric-card">
+      <div class="metric-header">
+        <i class="fa-solid fa-microchip metric-icon cpu"></i>
+        <h3>Uso de CPU</h3>
+      </div>
+      <div class="metric-value">
+        {{ currentMetrics ? currentMetrics.cpuUsage : '0.0' }} <span class="unit">%</span>
+      </div>
+      <div class="metric-bar">
+        <div class="bar-fill cpu-fill" [style.width.%]="currentMetrics ? currentMetrics.cpuUsage : 0"></div>
+      </div>
+      <p class="metric-caption">Servidor Backend (.NET Core 8)</p>
+    </div>
+
+    <!-- RAM Metric -->
+    <div class="glass-card metric-card">
+      <div class="metric-header">
+        <i class="fa-solid fa-memory metric-icon ram"></i>
+        <h3>Consumo de RAM</h3>
+      </div>
+      <div class="metric-value">
+        {{ currentMetrics ? currentMetrics.ramUsage : '0.0' }} <span class="unit">%</span>
+      </div>
+      <div class="metric-bar">
+        <div class="bar-fill ram-fill" [style.width.%]="currentMetrics ? currentMetrics.ramUsage : 0"></div>
+      </div>
+      <p class="metric-caption">Memoria en uso de los microservicios</p>
+    </div>
+
+    <!-- IoT Temp Metric -->
+    <div class="glass-card metric-card">
+      <div class="metric-header">
+        <i class="fa-solid fa-thermometer-half metric-icon temp"></i>
+        <h3>IoT Temperatura</h3>
+      </div>
+      <div class="metric-value">
+        {{ currentMetrics ? currentMetrics.sensorTemperature : '24.00' }} <span class="unit">°C</span>
+      </div>
+      <div class="metric-bar">
+        <div class="bar-fill temp-fill" [style.width.%]="currentMetrics ? (currentMetrics.sensorTemperature / 50 * 100) : 48"></div>
+      </div>
+      <p class="metric-caption">Simulador Serial / Sensor Arduino COM3</p>
+    </div>
+
+    <!-- IoT Humidity Metric -->
+    <div class="glass-card metric-card">
+      <div class="metric-header">
+        <i class="fa-solid fa-droplet metric-icon humidity"></i>
+        <h3>IoT Humedad</h3>
+      </div>
+      <div class="metric-value">
+        {{ currentMetrics ? currentMetrics.sensorHumidity : '55.0' }} <span class="unit">%</span>
+      </div>
+      <div class="metric-bar">
+        <div class="bar-fill humidity-fill" [style.width.%]="currentMetrics ? currentMetrics.sensorHumidity : 55"></div>
+      </div>
+      <p class="metric-caption">Monitoreo ambiental en tiempo real</p>
+    </div>
+  </section>
+
+  <!-- Syllabus Navigation -->
+  <section class="syllabus-section glass-panel">
+    <h2>Estructura del Plan de Estudios (Temario OIT 1)</h2>
+    <p class="caption">Haz clic en cualquiera de los cuadros de abajo para abrir el temario detallado y su conexión con proyectos de AWS / Big Data.</p>
+    
+    <div class="syllabus-grid">
+      <div class="syllabus-item cursor-pointer" *ngFor="let topic of topics" (click)="openTopicModal(topic)">
+        <div class="topic-num">{{ topic.code }}</div>
+        <div class="topic-details">
+          <h4>{{ topic.title }}</h4>
+          <p>{{ topic.shortDesc }}</p>
+          <div class="topic-action-hint">Ver Temario Detallado <i class="fa-solid fa-arrow-right-long"></i></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Glassmorphic Modal -->
+  <div class="modal-backdrop" *ngIf="selectedTopic" (click)="closeModal()">
+    <div class="modal-content glass-panel" (click)="$event.stopPropagation(); onModalClick($event)">
+      <div class="modal-header">
+        <span class="badge badge-primary">Tema {{ selectedTopic.code }}</span>
+        <button class="close-btn" (click)="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <h2>{{ selectedTopic.title }}</h2>
+        
+        <!-- Enriched Metadata Cards -->
+        <div class="modal-meta-grid">
+          <div class="meta-card">
+            <h4><i class="fa-solid fa-bullseye icon-blue"></i> Propósito y Usabilidad</h4>
+            <p>{{ selectedTopic.purposeUsability }}</p>
+          </div>
+          <div class="meta-card">
+            <h4><i class="fa-solid fa-compass icon-blue"></i> Contexto Técnico e Histórico</h4>
+            <p>{{ selectedTopic.context }}</p>
+          </div>
+          <div class="meta-card complexity">
+            <h4><i class="fa-solid fa-gauge-high icon-gold"></i> Complejidad de Entendimiento</h4>
+            <span class="complexity-text">{{ selectedTopic.complexity }}</span>
+          </div>
+        </div>
+        
+        <!-- Academic Theory Section -->
+        <div class="modal-section">
+          <h3><i class="fa-solid fa-book-open icon-blue"></i> Contenido Teórico Evaluado</h3>
+          <div class="theory-text">
+            <div *ngFor="let paragraph of selectedTopic.theory" [innerHTML]="paragraph" class="theory-paragraph"></div>
+          </div>
+        </div>
+
+        <!-- Glossary & Analogies Section -->
+        <div class="modal-section glossary-section">
+          <h3><i class="fa-solid fa-spell-check icon-blue"></i> Glosario de Términos y Analogías</h3>
+          <div class="glossary-grid">
+            <div class="glossary-card" *ngFor="let item of selectedTopic.glossary">
+              <div class="glossary-term"><i class="fa-solid fa-tag"></i> {{ item.term }}</div>
+              <div class="glossary-content">
+                <p class="glossary-definition"><strong>Definición Técnica:</strong> {{ item.definition }}</p>
+                <p class="glossary-analogy"><strong>En la vida real (Analogía):</strong> <i class="fa-solid fa-lightbulb icon-gold"></i> {{ item.analogy }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox Overlay for Zoomed Diagrams -->
+  <div class="lightbox-overlay" *ngIf="zoomedImageSrc" (click)="zoomedImageSrc = null">
+    <div class="lightbox-content" (click)="$event.stopPropagation()">
+      <img [src]="zoomedImageSrc" alt="Diagrama Ampliado">
+      <button class="close-lightbox-btn" (click)="zoomedImageSrc = null">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+  </div>
+</div>

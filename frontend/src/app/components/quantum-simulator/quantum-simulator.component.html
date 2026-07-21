@@ -1,0 +1,146 @@
+<div class="quantum-container">
+  <!-- Intro & Sim Page Header -->
+  <section class="page-header glass-panel">
+    <h1>Simulaciones Cuánticas y Medios Físicos</h1>
+    <p>Explore y simule el comportamiento de partículas subatómicas (Qúbits) y analice el rendimiento de transmisiones a nivel físico.</p>
+  </section>
+
+  <div class="split-layout">
+    <!-- Qubit Simulator Panel -->
+    <section class="simulator-panel glass-panel">
+      <h2>Simulador Interactivo de Qúbits</h2>
+      <p class="caption">Selecciona un estado cuántico inicial para el qúbit y ejecuta una medición para colapsar su función de onda.</p>
+
+      <div class="selector-box">
+        <label for="stateSelect" class="form-label">Estado Inicial (ψ):</label>
+        <select id="stateSelect" class="input-glass" [(ngModel)]="selectedState">
+          <option *ngFor="let st of states" [value]="st">{{ st }}</option>
+        </select>
+        
+        <button class="btn-primary" (click)="runSimulation()" [disabled]="isSimulating">
+          <i class="fa-solid" [class.fa-bolt]="!isSimulating" [class.fa-spinner]="isSimulating" [class.fa-spin]="isSimulating"></i>
+          {{ isSimulating ? 'Simulando...' : 'Medir Qúbit' }}
+        </button>
+      </div>
+
+      <!-- Simulation results -->
+      <div class="results-box" *ngIf="simResult">
+        <h3>Resultado de la Medición</h3>
+        <div class="measurement-display" [class.measured-one]="simResult.measurement === 1">
+          <span class="val">{{ simResult.measurement }}</span>
+          <span class="lbl">Qúbit Colapsado</span>
+        </div>
+
+        <div class="probabilities-section">
+          <h4>Probabilidades de Colapso</h4>
+          <div class="prob-row">
+            <span class="label">Estado |0⟩:</span>
+            <div class="bar-container">
+              <div class="bar-fill p0-fill" [style.width.%]="(simResult.probability_0 ?? 0.5) * 100"></div>
+            </div>
+            <span class="percentage">{{ ((simResult.probability_0 ?? 0.5) * 100) | number:'1.0-1' }}%</span>
+          </div>
+
+          <div class="prob-row">
+            <span class="label">Estado |1⟩:</span>
+            <div class="bar-container">
+              <div class="bar-fill p1-fill" [style.width.%]="(simResult.probability_1 ?? 0.5) * 100"></div>
+            </div>
+            <span class="percentage">{{ ((simResult.probability_1 ?? 0.5) * 100) | number:'1.0-1' }}%</span>
+          </div>
+        </div>
+
+        <!-- Entanglement Section -->
+        <div class="entanglement-card" *ngIf="simResult.entanglement">
+          <div class="card-header">
+            <i class="fa-solid fa-link-slash icon"></i>
+            <h4>Entrelazamiento de Bell (Par EPR)</h4>
+          </div>
+          <p>Dos partículas entrelazadas medidas instantáneamente en ubicaciones distintas:</p>
+          <div class="entangled-particles">
+            <div class="particle">Qúbit A: <span>{{ simResult.entanglement.qubit1 }}</span></div>
+            <div class="particle-link"><i class="fa-solid fa-arrows-left-right"></i></div>
+            <div class="particle">Qúbit B: <span>{{ simResult.entanglement.qubit2 }}</span></div>
+          </div>
+          <span class="badge badge-success animate-pulse-glow" style="margin-top: 0.5rem; display: inline-block;">
+            Estados 100% Correlacionados
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Explanations Column -->
+    <div class="details-column">
+      <!-- Concept Explanation -->
+      <section class="concept-panel glass-panel" *ngIf="explainData">
+        <h2>¿Qué es la Computación Cuántica?</h2>
+        <p class="definition">{{ explainData.answer.definition }}</p>
+        
+        <div class="quantum-principles">
+          <div class="principle-item" *ngFor="let pr of explainData.answer.principles">
+            <i class="fa-solid fa-circle-check icon-bullet"></i>
+            <span>{{ pr }}</span>
+          </div>
+        </div>
+
+        <div class="quantum-formula">
+          <span class="lbl">Fórmula de Planck:</span>
+          <code>{{ explainData.answer.key_formula }}</code>
+        </div>
+      </section>
+
+      <!-- Fiber Comparison Panel -->
+      <section class="fiber-panel glass-panel" *ngIf="fiberData">
+        <h2>Medios Físicos: Comparativa de Fibras</h2>
+        <p class="caption">Comparación detallada entre Fibra Óptica (sílice purificada) y Fibra de Vidrio común.</p>
+
+        <div class="fiber-table-container">
+          <table class="fiber-table">
+            <thead>
+              <tr>
+                <th>Característica</th>
+                <th>Fibra Óptica</th>
+                <th>Fibra de Vidrio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Material</strong></td>
+                <td>{{ fiberData.fiber_optic.description }}</td>
+                <td>{{ fiberData.glass_fiber.description }}</td>
+              </tr>
+              <tr>
+                <td><strong>Transmisión</strong></td>
+                <td>{{ fiberData.fiber_optic.transmission }}</td>
+                <td>{{ fiberData.glass_fiber.transmission }}</td>
+              </tr>
+              <tr>
+                <td><strong>Velocidad</strong></td>
+                <td>{{ fiberData.fiber_optic.speed }}</td>
+                <td>{{ fiberData.glass_fiber.speed }}</td>
+              </tr>
+              <tr>
+                <td><strong>Ancho de Banda</strong></td>
+                <td>{{ fiberData.fiber_optic.bandwidth }}</td>
+                <td>{{ fiberData.glass_fiber.bandwidth }}</td>
+              </tr>
+              <tr>
+                <td><strong>Atenuación</strong></td>
+                <td>{{ fiberData.fiber_optic.attenuation }}</td>
+                <td>{{ fiberData.glass_fiber.attenuation }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="winner-alert">
+          <i class="fa-solid fa-trophy winner-icon"></i>
+          <div>
+            <strong>Ganador: {{ fiberData.comparison.winner }}</strong>
+            <p>{{ fiberData.comparison.reason }}</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<header class="app-header glass-panel">
+  <div class="header-container">
+    <div class="app-logo">
+      <i class="fa-solid fa-graduation-cap logo-icon animate-float"></i>
+      <span class="logo-text">OIT 1 <span class="accent-text">Smart Platform</span></span>
+    </div>
+    
+    <nav class="app-nav">
+      <a routerLink="/dashboard" routerLinkActive="active-link" class="nav-item">
+        <i class="fa-solid fa-chart-line"></i> Dashboard
+      </a>
+      <a routerLink="/quantum" routerLinkActive="active-link" class="nav-item">
+        <i class="fa-solid fa-atom"></i> Cuántica
+      </a>
+      <a routerLink="/signal" routerLinkActive="active-link" class="nav-item">
+        <i class="fa-solid fa-wave-square"></i> Señales
+      </a>
+      <a routerLink="/vision" routerLinkActive="active-link" class="nav-item">
+        <i class="fa-solid fa-eye"></i> Visión IA
+      </a>
+      <a routerLink="/exam" routerLinkActive="active-link" class="nav-item">
+        <i class="fa-solid fa-file-signature"></i> Examen
+      </a>
+      <a routerLink="/ports" routerLinkActive="active-link" class="nav-item">
+        <i class="fa-solid fa-network-wired"></i> Puertos
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main class="app-main-content">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="app-footer glass-panel">
+  <p>© 2026 OIT 1 Smart Learning Platform. Diseñado para preparación de exámenes e integración de Sistemas Distribuidos (.NET, Python, Angular, PostgreSQL, Redis).</p>
+</footer>

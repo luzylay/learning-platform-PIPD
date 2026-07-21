@@ -1,0 +1,154 @@
+<div class="vision-container">
+  <!-- Header -->
+  <section class="page-header glass-panel">
+    <h1>Visión Artificial e Inteligencia Artificial</h1>
+    <p>Entrene modelos de Machine Learning utilizando TensorFlow y ejecute clasificadores en cascada de Haar OpenCV para detección de rostros o clasificación de contornos geométricos.</p>
+  </section>
+
+  <!-- Core Content Grid -->
+  <div class="split-layout">
+    <!-- Left Column: Training AI -->
+    <div class="left-column">
+      <!-- TensorFlow Model Training Card -->
+      <section class="train-card glass-panel">
+        <h2><i class="fa-solid fa-brain icon-title"></i> Entrenar Modelo de Clasificación (Q9)</h2>
+        <p class="caption">Crea una red neuronal artificial para aprender descriptores geométricos en el servidor.</p>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="modelType">Tipo de Red:</label>
+            <select id="modelType" class="input-glass" [(ngModel)]="modelType">
+              <option value="CNN">Red Neuronal Convolucional (CNN)</option>
+              <option value="Dense">Red Neuronal Densa Multi-Capa (MLP)</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="epochs">Épocas de Entrenamiento:</label>
+            <input type="number" id="epochs" class="input-glass" min="1" max="50" [(ngModel)]="epochs">
+          </div>
+        </div>
+
+        <button class="btn-primary" (click)="trainModel()" [disabled]="isTraining">
+          <i class="fa-solid" [class.fa-gears]="!isTraining" [class.fa-spinner]="isTraining" [class.fa-spin]="isTraining"></i>
+          {{ isTraining ? 'Entrenando Red...' : 'Iniciar Entrenamiento' }}
+        </button>
+
+        <!-- Training Results -->
+        <div class="training-results" *ngIf="trainingResult" [@fadeIn]>
+          <div class="res-summary">
+            <span class="badge badge-success"><i class="fa-solid fa-circle-check"></i> {{ trainingResult.message }}</span>
+            <div class="res-grid">
+              <div class="res-item">Precisión: <strong>{{ (trainingResult.model_accuracy * 100) | number:'1.0-2' }}%</strong></div>
+              <div class="res-item">Tiempo: <strong>{{ trainingResult.training_time }}</strong></div>
+            </div>
+          </div>
+          
+          <div class="next-steps">
+            <h4>Pasos para Implementación Embebida (Edge AI):</h4>
+            <ul>
+              <li *ngFor="let step of trainingResult.next_steps">
+                <i class="fa-solid fa-arrow-right"></i> {{ step }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Right Column: Computer Vision Dropzone & Actions -->
+    <div class="right-column">
+      <section class="cv-card glass-panel">
+        <h2><i class="fa-solid fa-camera icon-title"></i> Pruebas de Visión Artificial</h2>
+        <p class="caption">Sube una foto de un rostro (para Haar Cascades) o una figura geométrica simple (para contornos OpenCV).</p>
+
+        <!-- Drag and Drop Area -->
+        <div class="drag-zone" 
+             [class.dragging]="isDragging"
+             (dragover)="onDragOver($event)" 
+             (dragleave)="onDragLeave()" 
+             (drop)="onDrop($event)"
+             (click)="fileInput.click()">
+          
+          <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" style="display: none;">
+          
+          <div class="drag-content" *ngIf="!selectedImageBase64">
+            <i class="fa-solid fa-cloud-arrow-up drag-icon"></i>
+            <p>Arrastra tu imagen aquí o haz clic para buscar</p>
+            <span>Soporta JPG, PNG, WEBP</span>
+          </div>
+
+          <!-- Canvas to draw loaded image + bounding boxes -->
+          <div class="canvas-container" [style.display]="selectedImageBase64 ? 'block' : 'none'">
+            <canvas #imageCanvas></canvas>
+          </div>
+        </div>
+
+        <!-- Buttons row -->
+        <div class="action-buttons" *ngIf="selectedImageBase64">
+          <button class="btn-primary" (click)="detectFaces()" [disabled]="isDetecting">
+            <i class="fa-solid fa-user-check"></i> Detectar Rostros (Q16)
+          </button>
+          
+          <button class="btn-secondary" (click)="classifyShape()" [disabled]="isClassifying">
+            <i class="fa-solid fa-shapes"></i> Clasificar Forma (Q13)
+          </button>
+          
+          <button class="btn-secondary" (click)="selectedImageBase64 = null; detectionResult = null; shapeResult = null;" style="border-color: var(--danger); color: #fca5a5;">
+            <i class="fa-solid fa-trash"></i> Quitar Imagen
+          </button>
+        </div>
+
+        <!-- Face Detection Results Box -->
+        <div class="cv-results" *ngIf="detectionResult">
+          <h3>Resultados de Haar Cascade</h3>
+          <div class="summary-line">
+            Rostros Detectados: <span class="highlight">{{ detectionResult.faces_detected }}</span>
+          </div>
+          <div class="arduino-box">
+            <div class="box-header">
+              <i class="fa-solid fa-microchip icon"></i>
+              <h4>Lógica de Señalización Arduino</h4>
+            </div>
+            <div class="box-details">
+              <div>Señal Serial: <code>"{{ detectionResult.arduino_signal }}"</code></div>
+              <div>Acción de Hardware: <strong>{{ detectionResult.arduino_action }}</strong></div>
+            </div>
+          </div>
+
+          <div class="flow-list">
+            <h4>Flujo de Ejecución Lógica:</h4>
+            <ol>
+              <li *ngFor="let step of detectionResult.flow_logic ?? ['1. Capturar frame', '2. Grayscale', '3. Haar Cascade', '4. Detectar', '5. Enviar Serial', '6. Buzzer activado']">
+                {{ step }}
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Shape Classification Results Box -->
+        <div class="cv-results" *ngIf="shapeResult">
+          <h3>Resultados de Clasificación Geométrica</h3>
+          <div class="summary-line">
+            Figura Detectada: <span class="highlight text-capitalize">{{ shapeResult.detected_shape || shapeResult.shape }}</span>
+            (Precisión: <span>{{ (shapeResult.confidence * 100) | number:'1.0-1' }}%</span>)
+          </div>
+          <div class="arduino-box">
+            <div class="box-header">
+              <i class="fa-solid fa-lightbulb icon"></i>
+              <h4>Control de Ledes Arduino</h4>
+            </div>
+            <div class="box-details">
+              <div>Actuador: <strong>{{ shapeResult.arduino_action }}</strong></div>
+            </div>
+          </div>
+
+          <div class="code-box">
+            <h4>Código de Control Embebido C/C++:</h4>
+            <pre><code>{{ shapeResult.arduino_code }}</code></pre>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

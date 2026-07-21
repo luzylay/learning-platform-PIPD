@@ -1,0 +1,312 @@
+/* Face Detector Component CSS */
+
+.vision-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.page-header {
+  padding: 2rem;
+}
+
+.page-header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.page-header p {
+  color: var(--text-secondary);
+}
+
+/* Split Layout */
+.split-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 2rem;
+}
+
+@media (max-width: 1024px) {
+  .split-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.train-card, .cv-card {
+  padding: 2.2rem;
+}
+
+.icon-title {
+  color: var(--secondary);
+  margin-right: 0.5rem;
+}
+
+.caption {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Form Settings */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-field label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.btn-primary {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Training Results Card */
+.training-results {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--border-glass);
+  padding-top: 1.5rem;
+  animation: slideUp 0.3s ease-out;
+}
+
+.res-summary {
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.res-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.res-item strong {
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+.next-steps {
+  margin-top: 1.2rem;
+}
+
+.next-steps h4 {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  color: var(--secondary);
+}
+
+.next-steps ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.next-steps li {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.next-steps li i {
+  color: var(--secondary);
+  font-size: 0.75rem;
+}
+
+/* Vision Test Area */
+.drag-zone {
+  border: 2px dashed var(--border-glass);
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius-md);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 220px;
+}
+
+.drag-zone.dragging {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.05);
+  box-shadow: var(--shadow-glow-primary);
+}
+
+.drag-zone:hover:not(.dragging) {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.drag-icon {
+  font-size: 2.5rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+  transition: var(--transition-smooth);
+}
+
+.drag-zone:hover .drag-icon {
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.drag-content p {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.drag-content span {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.canvas-container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.canvas-container canvas {
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-glass);
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.action-buttons button {
+  flex-grow: 1;
+  justify-content: center;
+  font-size: 0.88rem;
+  padding: 0.65rem 1.2rem;
+}
+
+/* CV Results Box */
+.cv-results {
+  margin-top: 2rem;
+  border-top: 1px solid var(--border-glass);
+  padding-top: 1.5rem;
+  animation: slideUp 0.3s ease-out;
+}
+
+.cv-results h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--secondary);
+}
+
+.summary-line {
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.summary-line .highlight {
+  color: var(--secondary);
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-shadow: var(--shadow-glow-secondary);
+}
+
+.arduino-box {
+  background: rgba(6, 182, 212, 0.05);
+  border: 1px solid rgba(6, 182, 212, 0.15);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.arduino-box .box-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.arduino-box .icon {
+  color: var(--secondary);
+}
+
+.arduino-box h4 {
+  font-size: 0.92rem;
+}
+
+.box-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.box-details code {
+  color: var(--secondary);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.flow-list h4, .code-box h4 {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.flow-list ol {
+  padding-left: 1.2rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.code-box pre {
+  background: #060913;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: 0.82rem;
+  max-height: 200px;
+}
+
+.code-box code {
+  color: #67e8f9;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
