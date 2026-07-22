@@ -61,3 +61,8 @@ Guia_Estudio_OIT1.docx
 # Study Material Folder (excluded from git as requested)
 informacion/
 
+# OS generated files & scripts
+Thumbs.db
+.[Dd]s_[Ss]tore
+*.tmp
+build_word_doc.py

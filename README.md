@@ -42,23 +42,38 @@ Asegúrate de tener instalados los siguientes componentes en tu sistema operativ
 
 ---
 
-## 💻 Instrucciones de Instalación y Ejecución
+## 🐳 Despliegue con Docker & Docker Compose
 
-La plataforma cuenta con scripts de PowerShell automatizados en la raíz para agilizar el arranque local:
+La plataforma cuenta con soporte nativo para **Docker** y **Docker Compose**, lo que permite desplegar todo el stack de microservicios con un solo comando en cualquier entorno Cloud o servidor local:
 
-### 1. Iniciar toda la plataforma
-Ejecuta la consola de PowerShell como Administrador en la raíz del proyecto y corre el orquestador principal:
-```powershell
-powershell -ExecutionPolicy Bypass -File .\run-platform.ps1
+```bash
+docker compose up --build -d
 ```
-Este script restaurará las dependencias (npm, paquetes de NuGet, librerías de Python en un entorno virtual `.venv`), compilará los módulos e iniciará los tres servicios en paralelo.
 
-### 2. Acceder al sistema
-Una vez que el compilador de Angular complete el empaquetado, abre tu navegador e ingresa a:
-* **Frontend**: `http://localhost:4200`
-* **Directorio de Puertos e Nmap**: `http://localhost:4200/ports`
-* **API Gateway Swagger (.NET)**: `http://localhost:5074/swagger`
-* **AI FastAPI Swagger (Python)**: `http://localhost:8000/docs`
+### Puertos Mapeados en Docker:
+* **Frontend Angular**: `http://localhost:4200`
+* **API Gateway .NET 8**: `http://localhost:5000` (Swagger en `/swagger`)
+* **Microservicio Python (FastAPI)**: `http://localhost:8000` (Docs en `/docs`)
+* **Base de Datos PostgreSQL**: `localhost:5432`
+* **Caché Redis**: `localhost:6379`
+
+---
+
+## ⚡ Despliegue Automatizado (CI/CD con GitHub Actions)
+
+El repositorio incluye una **GitHub Action** automatizada (`.github/workflows/deploy.yml`) que en cada push a la rama `main`:
+1. Compila la aplicación Angular en modo producción con el base-href correspondiente.
+2. Genera las copias necesarias para soporte SPA y enrutamiento 404.
+3. Despliega automáticamente el frontend en **GitHub Pages**.
+
+---
+
+## 📚 Documentación y Reportes Incluidos
+
+El repositorio incluye los compendios técnicos formales desarrollados durante la investigación:
+* 📄 [GUIA_ESTUDIO_OIT1.md](GUIA_ESTUDIO_OIT1.md): Guía de estudio maestra universitaria de OIT 1.
+* 📄 [INFORME_TECNICO_OIT1.md](INFORME_TECNICO_OIT1.md): Informe técnico completo sobre infraestructura cloud, contenedores, normas ISO y herramientas de benchmarking (`ab`, `iperf3`, GCP Deployment Manager).
+* 📄 [Guia_Informacion_Clave_OIT1.docx](Guia_Informacion_Clave_OIT1.docx): Documento ejecutable de Microsoft Word con la síntesis objetiva de los contenidos de la carpeta `informacion`.
 
 ---
 
@@ -66,33 +81,35 @@ Una vez que el compilador de Angular complete el empaquetado, abre tu navegador 
 
 ```directory
 learning-platform-PIPD/
+├── .github/workflows/        # Pipeline CI/CD automatizado para GitHub Pages
 ├── backend/                  # Código fuente de la API Gateway en .NET Core 8.0
 │   ├── Controllers/          # Controladores HTTP REST
 │   ├── Hubs/                 # SignalR Hubs para comunicación en tiempo real
 │   ├── Services/             # Lógica de negocio y contexto de base de datos
-│   ├── appsettings.json      # Configuración de base de datos SQLite y conexiones
-│   └── Program.cs            # Registro de servicios e inicialización del API Host
+│   ├── appsettings.json      # Configuración de base de datos y microservicios
+│   └── Dockerfile            # Contenedorización del backend .NET
 ├── frontend/                 # Aplicación SPA interactiva en Angular 17
 │   ├── src/
 │   │   ├── app/
-│   │   │   ├── components/   # Vistas principales (Dashboard, PortsReference, etc.)
-│   │   │   └── services/     # Clientes de APIs HTTP y SignalR
-│   │   └── assets/           # Imágenes y diagramas de arquitectura purificados
-│   └── angular.json          # Configuración del compilador de Angular y Vite
+│   │   │   ├── components/   # Vistas (Dashboard, Syllabus, ExamPractice, PortsReference, etc.)
+│   │   │   └── services/     # Clientes de APIs HTTP y SignalR WebSockets
+│   │   └── assets/           # Imágenes y diagramas de arquitectura
+│   └── Dockerfile            # Servidor Nginx para contenedorización de producción
 ├── python-microservice/      # Inferencia de IA y procesamiento matemático en FastAPI
 │   ├── app/
-│   │   └── main.py           # Endpoints de visión artificial y análisis espectral (FFT)
+│   │   └── main.py           # Endpoints de visión artificial (OpenCV) y análisis espectral (SciPy)
 │   ├── requirements.txt      # Dependencias de Python (TensorFlow, SciPy, OpenCV, Pandas)
-│   └── Dockerfile            # Configuración de contenedorización Docker
+│   └── Dockerfile            # Contenedorización del microservicio Python
+├── docker-compose.yml        # Orquestación completa de 5 contenedores (Frontend, Backend, Python, Postgres, Redis)
+├── GUIA_ESTUDIO_OIT1.md      # Guía de estudio maestra
+├── INFORME_TECNICO_OIT1.md   # Informe técnico formal
 └── run-platform.ps1          # Script de PowerShell de arranque global
 ```
 
 ---
 
-## 🔒 Buenas Prácticas y Seguridad Aplicadas (Pre-Push)
+## 🔒 Buenas Prácticas y Auditoría del Repositorio
 
-Antes de realizar el commit y subir el código a GitHub, se aplicaron las siguientes buenas prácticas de desarrollo:
-
-1. **Gestión de Archivos Ignorados (.gitignore)**: Configurado el archivo `.gitignore` raíz para omitir las carpetas de compilación (`dist/`, `.angular/`), binarios de .NET (`bin/`, `obj/`), dependencias de Node (`node_modules/`), entornos virtuales de Python (`.venv/`, `__pycache__/`) y bases de datos locales (`*.db`, `oit1_learning.db`) para evitar conflictos de ramas.
-2. **Cero Credenciales en Código**: Migración de la conexión PostgreSQL con credenciales expuestas a un motor autónomo y seguro de **SQLite**, configurado dinámicamente desde el gestor de variables en `appsettings.json` sin llaves expuestas.
-3. **Análisis de Compilación Limpio**: Todas las llamadas de APIs, interfaces, tipados y clases CSS compilan con un 100% de éxito en sus compiladores nativos (`ng build` y `dotnet build`).
+1. **Filtros de Exclusión Estrictos (`.gitignore`)**: Se han configurado reglas para excluir cualquier binario compilado (`bin/`, `obj/`, `dist/`), librerías (`node_modules/`, `.venv/`), archivos de sistema (`Thumbs.db`, `.DS_Store`), bases de datos locales (`*.db`) y la carpeta local de insumos `informacion/`.
+2. **Despliegue y Pruebas de Compilación**: Todos los compiladores (Angular `ng build`, .NET `dotnet build`, Python FastAPI) compilan con un 100% de éxito en entorno de producción.
+3. **Cero Secretos Expuestos**: Las cadenas de conexión en `docker-compose.yml` y `appsettings.json` utilizan valores seguros por defecto para entornos de desarrollo y variables de entorno sobreescribibles para producción.
