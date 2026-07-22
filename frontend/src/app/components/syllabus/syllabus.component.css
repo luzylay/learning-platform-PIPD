@@ -1,0 +1,297 @@
+/* Syllabus Page Styles */
+.syllabus-page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1.5rem 0;
+}
+
+.intro-section {
+  padding: 2.5rem;
+  border-radius: var(--radius-lg);
+  background: var(--surface-glass);
+}
+
+.intro-content h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.intro-content .subtitle {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.syllabus-badges {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.badge-purple {
+  background: rgba(168, 85, 247, 0.2);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.4);
+}
+
+.badge-blue {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.badge-gold {
+  background: rgba(234, 179, 8, 0.2);
+  color: #facc15;
+  border: 1px solid rgba(234, 179, 8, 0.4);
+}
+
+.syllabus-section {
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+}
+
+.syllabus-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.syllabus-section .caption {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.syllabus-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.syllabus-item {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  transition: all 0.3s ease;
+}
+
+.syllabus-item:hover {
+  transform: translateY(-4px);
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.25);
+  background: rgba(30, 41, 59, 0.8);
+}
+
+.topic-num {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #818cf8;
+  background: rgba(99, 102, 241, 0.15);
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-sm);
+  height: fit-content;
+  white-space: nowrap;
+}
+
+.topic-details h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.topic-details p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.topic-action-hint {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #818cf8;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Modal Styles */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.modal-content {
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2.5rem;
+  border-radius: var(--radius-lg);
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #fff;
+}
+
+.modal-body h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.meta-card {
+  padding: 1.2rem;
+  background: rgba(30, 41, 59, 0.6);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.meta-card h4 {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.meta-card p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.modal-section {
+  margin-bottom: 2rem;
+}
+
+.modal-section h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.theory-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.theory-table th, .theory-table td {
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.theory-table th {
+  background: rgba(99, 102, 241, 0.2);
+  color: #818cf8;
+}
+
+.callout-box {
+  padding: 1.2rem;
+  border-radius: var(--radius-md);
+  margin: 1rem 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.callout-box.info {
+  background: rgba(59, 130, 246, 0.1);
+  border-left: 4px solid #3b82f6;
+}
+
+.callout-box.alert {
+  background: rgba(168, 85, 247, 0.1);
+  border-left: 4px solid #a855f7;
+}
+
+.code-highlight {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  color: #38bdf8;
+  font-family: 'Fira Code', monospace;
+}
+
+.glossary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.glossary-card {
+  padding: 1rem;
+  background: rgba(30, 41, 59, 0.4);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glossary-term {
+  font-weight: 700;
+  color: #38bdf8;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.glossary-definition, .glossary-analogy {
+  font-size: 0.85rem;
+  color: #cbd5e1;
+  margin-bottom: 0.4rem;
+  line-height: 1.4;
+}

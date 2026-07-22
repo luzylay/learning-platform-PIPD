@@ -140,26 +140,106 @@
   color: var(--text-muted);
 }
 
-/* Syllabus Section */
-.syllabus-section {
+/* Quick Access Hub Section */
+.quick-hub-section {
   padding: 2.5rem;
 }
 
-.syllabus-section h2 {
+.quick-hub-section h2 {
   font-size: 1.6rem;
   margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.syllabus-section .caption {
+.quick-hub-section .caption {
   color: var(--text-secondary);
   margin-bottom: 2rem;
   font-size: 0.95rem;
 }
 
-.syllabus-grid {
+.hub-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
+}
+
+.hub-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+.hub-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.25);
+  background: rgba(30, 41, 59, 0.8);
+}
+
+.hub-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.hub-icon.purple {
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.hub-icon.blue {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.hub-icon.green {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.hub-info {
+  flex-grow: 1;
+}
+
+.hub-info h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: var(--text-primary);
+}
+
+.hub-info p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.hub-arrow {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.hub-card:hover .hub-arrow {
+  transform: translateX(5px);
+  color: #818cf8;
 }
 
 .syllabus-item {

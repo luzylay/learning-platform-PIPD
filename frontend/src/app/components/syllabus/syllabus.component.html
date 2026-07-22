@@ -1,0 +1,92 @@
+<div class="syllabus-page-container">
+  <!-- Top Intro Section -->
+  <section class="intro-section glass-panel">
+    <div class="intro-content">
+      <h1><i class="fa-solid fa-book-open icon-purple"></i> Plan de Estudios (Temario OIT 1)</h1>
+      <p class="subtitle">Guía académica formal de Operaciones e Infraestructura Tecnológica con aplicación en proyectos AWS y Big Data</p>
+      <div class="syllabus-badges">
+        <span class="badge badge-purple"><i class="fa-solid fa-graduation-cap"></i> 8 Módulos de Estudio</span>
+        <span class="badge badge-blue"><i class="fa-brands fa-aws"></i> Conexión AWS Cloud & Big Data</span>
+        <span class="badge badge-gold"><i class="fa-solid fa-certificate"></i> Preparación de Examen</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Syllabus Grid Section -->
+  <section class="syllabus-section glass-panel">
+    <h2>Estructura de Contenidos Evaluados</h2>
+    <p class="caption">Haz clic en cualquiera de los módulos para desplegar el contenido teórico formal, glosario de términos, analogías de la vida real y arquitecturas en AWS.</p>
+    
+    <div class="syllabus-grid">
+      <div class="syllabus-item cursor-pointer" *ngFor="let topic of topics" (click)="openTopicModal(topic)">
+        <div class="topic-num">{{ topic.code }}</div>
+        <div class="topic-details">
+          <h4>{{ topic.title }}</h4>
+          <p>{{ topic.shortDesc }}</p>
+          <div class="topic-action-hint">Ver Temario Detallado <i class="fa-solid fa-arrow-right-long"></i></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Glassmorphic Modal -->
+  <div class="modal-backdrop" *ngIf="selectedTopic" (click)="closeModal()">
+    <div class="modal-content glass-panel" (click)="$event.stopPropagation(); onModalClick($event)">
+      <div class="modal-header">
+        <span class="badge badge-primary">{{ selectedTopic.code }}</span>
+        <button class="close-btn" (click)="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <h2>{{ selectedTopic.title }}</h2>
+        
+        <!-- Enriched Metadata Cards -->
+        <div class="modal-meta-grid">
+          <div class="meta-card">
+            <h4><i class="fa-solid fa-bullseye icon-blue"></i> Propósito y Usabilidad</h4>
+            <p>{{ selectedTopic.purposeUsability }}</p>
+          </div>
+          <div class="meta-card">
+            <h4><i class="fa-solid fa-compass icon-blue"></i> Contexto Técnico e Histórico</h4>
+            <p>{{ selectedTopic.context }}</p>
+          </div>
+          <div class="meta-card complexity">
+            <h4><i class="fa-solid fa-gauge-high icon-gold"></i> Complejidad de Entendimiento</h4>
+            <span class="complexity-text">{{ selectedTopic.complexity }}</span>
+          </div>
+        </div>
+        
+        <!-- Academic Theory Section -->
+        <div class="modal-section">
+          <h3><i class="fa-solid fa-book-open icon-blue"></i> Contenido Teórico Evaluado</h3>
+          <div class="theory-text">
+            <div *ngFor="let paragraph of selectedTopic.theory" [innerHTML]="paragraph" class="theory-paragraph"></div>
+          </div>
+        </div>
+
+        <!-- Glossary & Analogies Section -->
+        <div class="modal-section glossary-section">
+          <h3><i class="fa-solid fa-spell-check icon-blue"></i> Glosario de Términos y Analogías</h3>
+          <div class="glossary-grid">
+            <div class="glossary-card" *ngFor="let item of selectedTopic.glossary">
+              <div class="glossary-term"><i class="fa-solid fa-tag"></i> {{ item.term }}</div>
+              <div class="glossary-content">
+                <p class="glossary-definition"><strong>Definición Técnica:</strong> {{ item.definition }}</p>
+                <p class="glossary-analogy"><strong>En la vida real (Analogía):</strong> <i class="fa-solid fa-lightbulb icon-gold"></i> {{ item.analogy }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox Overlay for Zoomed Diagrams -->
+  <div class="lightbox-overlay" *ngIf="zoomedImageSrc" (click)="zoomedImageSrc = null">
+    <div class="lightbox-content" (click)="$event.stopPropagation()">
+      <img [src]="zoomedImageSrc" alt="Diagrama Ampliado">
+      <button class="close-lightbox-btn" (click)="zoomedImageSrc = null">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+  </div>
+</div>

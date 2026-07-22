@@ -2,20 +2,20 @@
   <!-- Top Intro Section -->
   <section class="intro-section glass-panel">
     <div class="intro-content">
-      <h1>OIT 1 - Smart Learning Platform</h1>
-      <p class="subtitle">Plataforma de aprendizaje interactiva de Operaciones e Infraestructura Tecnológica</p>
+      <h1><i class="fa-solid fa-chart-line icon-blue"></i> Dashboard de Monitoreo & Telemetría</h1>
+      <p class="subtitle">Centro de control en tiempo real de microservicios (.NET, FastAPI, SignalR) e infraestructura IoT</p>
       <div class="system-statuses">
         <div class="status-badge" [class.online]="isConnected">
           <i class="fa-solid" [class.fa-link]="isConnected" [class.fa-chain-broken]="!isConnected"></i>
-          SignalR: <span>{{ isConnected ? 'CONECTADO' : 'DESCONECTADO' }}</span>
+          SignalR WebSockets: <span>{{ isConnected ? 'CONECTADO' : 'DESCONECTADO' }}</span>
         </div>
         <div class="status-badge" [class.online]="apiStatus === 'ONLINE'">
           <i class="fa-solid fa-server"></i>
-          API Gateway: <span>{{ apiStatus }}</span>
+          API Gateway (.NET 8): <span>{{ apiStatus }}</span>
         </div>
         <div class="status-badge" [class.online]="pythonStatus === 'ONLINE'">
           <i class="fa-brands fa-python"></i>
-          FastAPI AI: <span>{{ pythonStatus }}</span>
+          FastAPI Microservice: <span>{{ pythonStatus }}</span>
         </div>
       </div>
       <p class="feed-log"><i class="fa-solid fa-circle-info"></i> {{ systemMessage }}</p>
@@ -85,81 +85,39 @@
     </div>
   </section>
 
-  <!-- Syllabus Navigation -->
-  <section class="syllabus-section glass-panel">
-    <h2>Estructura del Plan de Estudios (Temario OIT 1)</h2>
-    <p class="caption">Haz clic en cualquiera de los cuadros de abajo para abrir el temario detallado y su conexión con proyectos de AWS / Big Data.</p>
+  <!-- Quick Access Hub Section -->
+  <section class="quick-hub-section glass-panel">
+    <h2><i class="fa-solid fa-rocket icon-gold"></i> Accesos Rápidos a la Plataforma</h2>
+    <p class="caption">Navega a los módulos principales de estudio y preparación del examen OIT 1.</p>
     
-    <div class="syllabus-grid">
-      <div class="syllabus-item cursor-pointer" *ngFor="let topic of topics" (click)="openTopicModal(topic)">
-        <div class="topic-num">{{ topic.code }}</div>
-        <div class="topic-details">
-          <h4>{{ topic.title }}</h4>
-          <p>{{ topic.shortDesc }}</p>
-          <div class="topic-action-hint">Ver Temario Detallado <i class="fa-solid fa-arrow-right-long"></i></div>
+    <div class="hub-grid">
+      <a routerLink="/syllabus" class="hub-card">
+        <div class="hub-icon purple"><i class="fa-solid fa-book-open"></i></div>
+        <div class="hub-info">
+          <h3>Temario OIT 1</h3>
+          <p>Explora los 8 módulos académicos formales y su conexión con proyectos en AWS / Big Data.</p>
         </div>
-      </div>
+        <i class="fa-solid fa-arrow-right hub-arrow"></i>
+      </a>
+
+      <a routerLink="/exam" class="hub-card">
+        <div class="hub-icon blue"><i class="fa-solid fa-file-signature"></i></div>
+        <div class="hub-info">
+          <h3>Examen Práctico</h3>
+          <p>Evalúa tus conocimientos con 16 preguntas académicas formales y retroalimentación instantánea.</p>
+        </div>
+        <i class="fa-solid fa-arrow-right hub-arrow"></i>
+      </a>
+
+      <a routerLink="/ports" class="hub-card">
+        <div class="hub-icon green"><i class="fa-solid fa-network-wired"></i></div>
+        <div class="hub-info">
+          <h3>Referencia de Puertos</h3>
+          <p>Consulta el catálogo de puertos de red corporativos y prueba el simulador de escaneo Nmap.</p>
+        </div>
+        <i class="fa-solid fa-arrow-right hub-arrow"></i>
+      </a>
     </div>
   </section>
-
-  <!-- Interactive Glassmorphic Modal -->
-  <div class="modal-backdrop" *ngIf="selectedTopic" (click)="closeModal()">
-    <div class="modal-content glass-panel" (click)="$event.stopPropagation(); onModalClick($event)">
-      <div class="modal-header">
-        <span class="badge badge-primary">Tema {{ selectedTopic.code }}</span>
-        <button class="close-btn" (click)="closeModal()"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="modal-body">
-        <h2>{{ selectedTopic.title }}</h2>
-        
-        <!-- Enriched Metadata Cards -->
-        <div class="modal-meta-grid">
-          <div class="meta-card">
-            <h4><i class="fa-solid fa-bullseye icon-blue"></i> Propósito y Usabilidad</h4>
-            <p>{{ selectedTopic.purposeUsability }}</p>
-          </div>
-          <div class="meta-card">
-            <h4><i class="fa-solid fa-compass icon-blue"></i> Contexto Técnico e Histórico</h4>
-            <p>{{ selectedTopic.context }}</p>
-          </div>
-          <div class="meta-card complexity">
-            <h4><i class="fa-solid fa-gauge-high icon-gold"></i> Complejidad de Entendimiento</h4>
-            <span class="complexity-text">{{ selectedTopic.complexity }}</span>
-          </div>
-        </div>
-        
-        <!-- Academic Theory Section -->
-        <div class="modal-section">
-          <h3><i class="fa-solid fa-book-open icon-blue"></i> Contenido Teórico Evaluado</h3>
-          <div class="theory-text">
-            <div *ngFor="let paragraph of selectedTopic.theory" [innerHTML]="paragraph" class="theory-paragraph"></div>
-          </div>
-        </div>
-
-        <!-- Glossary & Analogies Section -->
-        <div class="modal-section glossary-section">
-          <h3><i class="fa-solid fa-spell-check icon-blue"></i> Glosario de Términos y Analogías</h3>
-          <div class="glossary-grid">
-            <div class="glossary-card" *ngFor="let item of selectedTopic.glossary">
-              <div class="glossary-term"><i class="fa-solid fa-tag"></i> {{ item.term }}</div>
-              <div class="glossary-content">
-                <p class="glossary-definition"><strong>Definición Técnica:</strong> {{ item.definition }}</p>
-                <p class="glossary-analogy"><strong>En la vida real (Analogía):</strong> <i class="fa-solid fa-lightbulb icon-gold"></i> {{ item.analogy }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Lightbox Overlay for Zoomed Diagrams -->
-  <div class="lightbox-overlay" *ngIf="zoomedImageSrc" (click)="zoomedImageSrc = null">
-    <div class="lightbox-content" (click)="$event.stopPropagation()">
-      <img [src]="zoomedImageSrc" alt="Diagrama Ampliado">
-      <button class="close-lightbox-btn" (click)="zoomedImageSrc = null">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-    </div>
-  </div>
 </div>
+
