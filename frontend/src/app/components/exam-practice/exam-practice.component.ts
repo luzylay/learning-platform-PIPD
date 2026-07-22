@@ -113,147 +113,227 @@ export class ExamPracticeComponent implements OnInit {
     this.questions = [
       {
         id: 1,
-        text: "¿Qué principio cuántico establece que una partícula puede existir en múltiples estados simultáneamente hasta que es medida?",
-        options: ["Cuantización", "Superposición", "Entrelazamiento", "Dualidad onda-partícula"],
+        text: "¿En la física cuántica, cómo se expresa el estado de un cúbit |ψ⟩ en el espacio de Hilbert C² y qué restricción impone la Regla de Born sobre las amplitudes α y β?",
+        options: [
+          "|ψ⟩ = α|0⟩ - β|1⟩ donde |α| + |β| = 1",
+          "|ψ⟩ = α|0⟩ + β|1⟩ donde |α|² + |β|² = 1",
+          "|ψ⟩ = (α + β)(|0⟩ + |1⟩) donde α, β ∈ ℝ",
+          "|ψ⟩ = α|0⟩ / β|1⟩ donde α · β = 0"
+        ],
         correctOptionIndex: 1,
-        explanation: "La superposición cuántica permite que partículas como los cúbits representen múltiples estados (0 y 1) al mismo tiempo en el espacio de Hilbert.",
+        explanation: "Un cúbit es una combinación lineal |ψ⟩ = α|0⟩ + β|1⟩ en C², donde α, β son amplitudes de probabilidad complejas y la Regla de Born exige que |α|² + |β|² = 1.",
         syllabusConcept: "Mecánica Cuántica",
-        topicCode: "Q1-2"
+        topicCode: "TEMA 1"
       },
       {
         id: 2,
-        text: "¿Cuál es la principal ventaja física de la fibra óptica de sílice purificada en comparación con la fibra de vidrio convencional?",
-        options: ["Mayor susceptibilidad a EMI", "Instalación sumamente rígida", "Mínima atenuación de la luz (aprox. 0.2 dB/km)", "Mayor coste y peso"],
-        correctOptionIndex: 2,
-        explanation: "La fibra óptica de alta pureza posee una atenuación extremadamente baja (~0.2 dB/km a 1550 nm), permitiendo transmisiones de larga distancia sin repetidores.",
+        text: "¿Cuál es la diferencia física de operación fundamental entre la fibra óptica y la fibra de vidrio (GFRP)?",
+        options: [
+          "La fibra óptica transmite luz por Reflexión Total Interna; la fibra de vidrio es un material compuesto para refuerzo mecánico.",
+          "Ambas transmiten pulsos electromagnéticos por difracción de rayos X.",
+          "La fibra de vidrio transmite datos a 1550 nm y la fibra óptica se usa en chasis de automóviles.",
+          "La fibra óptica funciona con resina epoxi y la fibra de vidrio con dióxido de silicio purísimo al 99.9%."
+        ],
+        correctOptionIndex: 0,
+        explanation: "La Fibra Óptica transporta datos mediante la Reflexión Interna Total (TIR) en su núcleo de sílice. La Fibra de Vidrio (GFRP) es un polímero reforzado para resistencia estructural y aislamiento.",
         syllabusConcept: "Fibra Óptica vs Vidrio",
-        topicCode: "Q1-2"
+        topicCode: "TEMA 1"
       },
       {
         id: 3,
-        text: "Tres características definitorias de un 'modelo mental' en interacción humano-computadora son:",
-        options: ["Estático, objetivo y absoluto", "Subjetivo, dinámico y simplificador", "Binario, lineal y matemático", "Ergonómico, electromagnético y reflectivo"],
+        text: "Según el estándar ISO/IEC/IEEE 12207, ¿cuál es la secuencia formal de las fases del Ciclo de Vida del Software (SDLC)?",
+        options: [
+          "Diseño ➔ Codificación ➔ Requisitos ➔ Mantenimiento ➔ Pruebas ➔ Despliegue",
+          "Análisis/Requisitos ➔ Diseño de Arquitectura ➔ Implementación/Codificación ➔ Verificación y Validación ➔ Despliegue ➔ Mantenimiento",
+          "Planificación ➔ Pruebas ➔ Despliegue ➔ Diseño ➔ Análisis ➔ Retiro",
+          "Codificación ➔ Integración ➔ Pruebas ➔ Requisitos ➔ Auditoría CMMI ➔ Release"
+        ],
         correctOptionIndex: 1,
-        explanation: "Un modelo mental es subjetivo (varía por persona), dinámico (evoluciona con la práctica) y simplificador (reduce la complejidad real de la ingeniería de software).",
-        syllabusConcept: "Modelos Mentales",
-        topicCode: "Q3-4"
+        explanation: "El SDLC formal según ISO 12207 establece: 1. Requisitos (SRS), 2. Diseño (SDD), 3. Implementación, 4. V&V (Testing), 5. Despliegue (CD Pipeline) y 6. Mantenimiento.",
+        syllabusConcept: "Ciclo de Vida de Software",
+        topicCode: "TEMA 2"
       },
       {
         id: 4,
-        text: "¿En qué fase del ciclo de vida del desarrollo de software (SDLC) se crean wireframes, prototipos y el diseño de la arquitectura del sistema?",
-        options: ["Planificación", "Análisis", "Diseño", "Pruebas"],
-        correctOptionIndex: 2,
-        explanation: "La fase de Diseño se encarga de definir la arquitectura, esquemas de bases de datos, y wireframes de interfaces de usuario.",
-        syllabusConcept: "Ciclo de Vida de Software",
-        topicCode: "Q3-4"
+        text: "En ergonomía cognitiva (Donald Norman), ¿qué define el 'Golfo de Ejecución' y el 'Golfo de Evaluación'?",
+        options: [
+          "La velocidad de la CPU vs el consumo de memoria RAM del servidor.",
+          "La distancia entre la intención del usuario y la acción permitida en la GUI vs la distancia entre el estado real del sistema y lo percibido.",
+          "El tiempo de compilación en .NET vs el tiempo de despliegue en AWS EKS.",
+          "La diferencia de ancho de banda entre TCP y UDP en un test de iperf3."
+        ],
+        correctOptionIndex: 1,
+        explanation: "El Golfo de Ejecución mide la dificultad para traducir intenciones en acciones en pantalla; el Golfo de Evaluación mide la brecha para percibir e interpretar el estado del sistema.",
+        syllabusConcept: "Modelos Mentales",
+        topicCode: "TEMA 2"
       },
       {
         id: 5,
-        text: "¿Cuáles son las llamadas '5 V' que caracterizan la naturaleza del Big Data?",
-        options: ["Vector, Valor, Vórtice, Varianza, Visual", "Volumen, Velocidad, Variedad, Veracidad, Valor", "Vidrio, Velocidad, Vector, Volatilidad, Vórtice", "Variables, Varianza, Validación, Vínculo, Vapor"],
+        text: "¿Qué caracteriza a una organización evaluada en el Nivel 3 de Madurez de CMMI (Defined / Definido)?",
+        options: [
+          "Procesos impredecibles, reactivos y no documentados.",
+          "Procesos estandarizados a nivel de la organización con guías formales de adaptación (tailoring) para cada proyecto.",
+          "Uso exclusivo de métricas cuantitativas estadísticas y control de procesos en tiempo real.",
+          "Enfoque único en la optimización e innovación tecnológica continua sin procedimientos formales."
+        ],
         correctOptionIndex: 1,
-        explanation: "Las 5 V son Volumen (tamaño de datos), Velocidad (tiempo real), Variedad (tipos de datos), Veracidad (calidad) y Valor (utilidad para el negocio).",
-        syllabusConcept: "Big Data",
-        topicCode: "Q5-6"
+        explanation: "En CMMI Nivel 3, los procesos están caracterizados y descritos en estándares a nivel organizacional (PAL) y los proyectos individuales aplican 'Tailoring' controlado.",
+        syllabusConcept: "CMMI Nivel 3",
+        topicCode: "TEMA 3"
       },
       {
         id: 6,
-        text: "El servicio AWS EC2 (servidores virtuales escalables) se clasifica típicamente dentro de qué modelo de servicio Cloud:",
-        options: ["SaaS", "PaaS", "IaaS", "FaaS"],
-        correctOptionIndex: 2,
-        explanation: "IaaS (Infrastructure as a Service) proporciona recursos de computación fundamentales como servidores virtuales, almacenamiento y redes.",
-        syllabusConcept: "Cloud Computing",
-        topicCode: "Q5-6"
+        text: "¿Cuál es la diferencia clave de la norma ISO/IEC 27001 frente a ISO 9001 e ISO 25000?",
+        options: [
+          "ISO 27001 regula la satisfacción del cliente; ISO 9001 evalúa el código fuente.",
+          "ISO 27001 establece un Sistema de Gestión de Seguridad de la Información (SGSI) protegiendo la Triada CIA (Confidencialidad, Integridad, Disponibilidad).",
+          "ISO 27001 es un marco exclusivo para proyectos ágiles de Scrum.",
+          "ISO 27001 mide el bitrate de enlaces de fibra óptica monomodo."
+        ],
+        correctOptionIndex: 1,
+        explanation: "ISO 27001 se enfoca en la seguridad de la información (SGSI) garantizando Confidencialidad, Integridad y Disponibilidad (Triada CIA), mientras que ISO 9001 es Gestión de Calidad (SGC) e ISO 25000 (SQuaRE) mide calidad del producto software.",
+        syllabusConcept: "Normas ISO",
+        topicCode: "TEMA 3"
       },
       {
         id: 7,
-        text: "¿Cuál es la filosofía principal del Diseño Centrado en el Usuario (DCU)?",
-        options: ["Poner al programador en el centro del desarrollo", "Diseñar interfaces según las restricciones puramente de hardware", "Poner las necesidades, capacidades y limitaciones del usuario final en el centro del proceso", "Reducir los costes de producción mediante el uso de plantillas genéricas"],
-        correctOptionIndex: 2,
-        explanation: "El DCU es un enfoque iterativo regido por la ISO 9241-210 que ubica al usuario y sus necesidades reales como la prioridad absoluta de diseño.",
-        syllabusConcept: "Diseño Centrado en el Usuario",
-        topicCode: "Q7-8"
+        text: "En COBIT 2019, ¿cuál es la distinción fundamental entre 'Gobierno' y 'Gestión'?",
+        options: [
+          "Gobierno es ejecutado por los programadores; Gestión por los clientes.",
+          "Gobierno evalúa, dirige y monitorea (EDM) a nivel directivo; Gestión planifica, construye, ejecuta y monitorea (APO, BAI, DSS, MEA) a nivel ejecutivo.",
+          "Gobierno aplica pruebas iperf3; Gestión compila artefactos en Docker.",
+          "No existe distinción; ambos términos son equivalentes en el marco ISACA."
+        ],
+        correctOptionIndex: 1,
+        explanation: "COBIT separa explícitamente el Gobierno (EDM - Evaluar, Dirigir, Monitorear a cargo de la Junta Directiva) de la Gestión (APO, BAI, DSS, MEA a cargo de la dirección operativa).",
+        syllabusConcept: "COBIT e ITIL",
+        topicCode: "TEMA 3"
       },
       {
         id: 8,
-        text: "En el flujo de diseño de la interfaz gráfica de usuario (GUI), ¿qué actividad sigue directamente a la creación de wireframes iniciales?",
-        options: ["Despliegue final en producción", "Creación de prototipos de baja fidelidad y pruebas de usabilidad", "Codificación de controladores en .NET", "Entrenamiento del modelo en TensorFlow"],
+        text: "¿Cuáles son las 5 etapas formales del proceso KDD (Knowledge Discovery in Databases)?",
+        options: [
+          "Sample ➔ Explore ➔ Modify ➔ Model ➔ Assess",
+          "Selección ➔ Preprocesamiento (limpieza) ➔ Transformación ➔ Minería de Datos ➔ Interpretación / Evaluación",
+          "Business Understanding ➔ Data Preparation ➔ Modeling ➔ Testing ➔ Deployment ➔ Maintenance",
+          "Input ➔ Processing ➔ Output ➔ Feedback ➔ Storage"
+        ],
         correctOptionIndex: 1,
-        explanation: "Tras los wireframes iniciales, se elaboran prototipos interactivos rápidos de baja fidelidad para recolectar opiniones tempranas de los usuarios.",
-        syllabusConcept: "Flujo de Diseño GUI",
-        topicCode: "Q7-8"
+        explanation: "KDD se estructura formalmente en: 1. Selección, 2. Preprocesamiento (Data Cleaning), 3. Transformación (PCA/Normalización), 4. Minería de Datos (Data Mining) y 5. Interpretación/Evaluación.",
+        syllabusConcept: "Metodologías de Datos",
+        topicCode: "TEMA 4"
       },
       {
         id: 9,
-        text: "Para ejecutar un modelo de TensorFlow en un microcontrolador como Arduino, ¿qué variante optimizada de TensorFlow se requiere debido a limitaciones de memoria?",
-        options: ["TensorFlow GPU", "TensorFlow Lite for Microcontrollers", "Keras Core", "TensorFlow Serverless"],
-        correctOptionIndex: 1,
-        explanation: "TensorFlow Lite para Microcontroladores permite ejecutar inferencias de modelos entrenados directamente en hardware con unos pocos kilobytes de memoria mediante cuantificación INT8.",
-        syllabusConcept: "TensorFlow + Arduino",
-        topicCode: "Q9-13"
+        text: "¿Cuáles son las 6 fases iterativas del estándar CRISP-DM para proyectos de minería de datos?",
+        options: [
+          "Business Understanding ➔ Data Understanding ➔ Data Preparation ➔ Modeling ➔ Evaluation ➔ Deployment",
+          "Sample ➔ Explore ➔ Modify ➔ Model ➔ Assess ➔ Retain",
+          "Plan ➔ Build ➔ Run ➔ Monitor ➔ Audit ➔ Report",
+          "Requirements ➔ Design ➔ Code ➔ Test ➔ Release ➔ Operations"
+        ],
+        correctOptionIndex: 0,
+        explanation: "CRISP-DM es el estándar de minería de datos con 6 fases: Comprensión del Negocio, Comprensión de Datos, Preparación de Datos, Modelado, Evaluación y Despliegue.",
+        syllabusConcept: "Metodologías de Datos",
+        topicCode: "TEMA 4"
       },
       {
         id: 10,
-        text: "¿Qué algoritmo eficiente se utiliza en SciPy para calcular las transformadas de Fourier que descomponen señales en el dominio del tiempo al de frecuencia?",
-        options: ["SVM", "K-Means", "FFT (Fast Fourier Transform)", "Butterworth Filter"],
-        correctOptionIndex: 2,
-        explanation: "La FFT (Transformada Rápida de Fourier) es el algoritmo optimizado implementado en scipy.fft para resolver transformadas de Fourier discretas rápidamente.",
-        syllabusConcept: "Transformadas de Fourier",
-        topicCode: "Q10-15"
+        text: "Según el NIST (SP 800-145), ¿cuáles son las 5 características esenciales de Cloud Computing?",
+        options: [
+          "Autoservicio bajo demanda, Acceso amplio a red, Agrupamiento de recursos, Elasticidad rápida y Servicio medido.",
+          "Hipervisor, Servidores físicos, Cables de cobre, Switches capa 2 y Puertos USB.",
+          "Docker, Kubernetes, AWS S3, Apache Bench e iperf3.",
+          "Alta disponibilidad, Cero atenuación, Prototipos UI, Scrum y CMMI L3."
+        ],
+        correctOptionIndex: 0,
+        explanation: "Las 5 características esenciales del NIST SP 800-145 son: On-demand self-service, Broad network access, Resource pooling, Rapid elasticity y Measured service.",
+        syllabusConcept: "Cloud Computing",
+        topicCode: "TEMA 5"
       },
       {
         id: 11,
-        text: "¿Cuál es la estructura de datos bidimensional indexada principal que ofrece Pandas para la manipulación y limpieza de datos en proyectos de IA?",
-        options: ["Numpy Array", "Python Dictionary", "DataFrame", "Tuple"],
-        correctOptionIndex: 2,
-        explanation: "El DataFrame es el objeto tabular bidimensional indexado insignia de Pandas para manejar datos heterogéneos estructurados.",
-        syllabusConcept: "Ventajas de Pandas",
-        topicCode: "Q11-12"
+        text: "¿Cómo logra Docker el aislamiento liviano de contenedores sin requerir un Hipervisor ni SO huésped completo?",
+        options: [
+          "Emulando instrucciones de hardware mediante procesadores ARM virtuales.",
+          "Utilizando Namespaces (aislamiento PID, NET, MNT) y Control Groups / cgroups (límites de CPU/RAM) del Kernel Linux.",
+          "Ejecutando instancias de máquinas virtuales VirtualBox en segundo plano.",
+          "Utilizando reflectómetros ópticos OTDR para dividir los datos."
+        ],
+        correctOptionIndex: 1,
+        explanation: "Docker utiliza virtualización a nivel de SO aprovechando Namespaces (para aislar procesos, red y montaje) y cgroups (para limitar CPU/RAM) compartiendo el Kernel anfitrión.",
+        syllabusConcept: "Docker & Kubernetes",
+        topicCode: "TEMA 6"
       },
       {
         id: 12,
-        text: "Al comunicar Python y Arduino mediante PySerial, ¿por qué es crítico llamar a time.sleep(2) directamente después de abrir la conexión serial?",
-        options: ["Para descargar el firmware del Arduino", "Para esperar a que la placa se reinicie (auto-reset) y establezca la comunicación", "Para calibrar los sensores analógicos", "Para liberar la memoria caché de Windows"],
+        text: "En la arquitectura de Kubernetes (K8s), ¿cuál es el componente clave del Control Plane que actúa como base de datos clave-valor distribuida para guardar el estado del clúster?",
+        options: [
+          "kube-apiserver",
+          "etcd",
+          "kubelet",
+          "kube-proxy"
+        ],
         correctOptionIndex: 1,
-        explanation: "Casi todas las placas Arduino se reinician físicamente mediante la línea DTR al abrir la conexión serial; un retraso de 2 segundos evita que se envíen comandos durante el reinicio.",
-        syllabusConcept: "PySerial y Arduino",
-        topicCode: "Q11-12"
+        explanation: "etcd es el almacén de datos clave-valor distribuido y fuertemente consistente utilizado por Kubernetes para guardar todo el estado y configuración del clúster.",
+        syllabusConcept: "Docker & Kubernetes",
+        topicCode: "TEMA 6"
       },
       {
         id: 13,
-        text: "En OpenCV, ¿qué técnica se usa típicamente para detectar el número de vértices de una figura y poder clasificarla como triángulo (3) o cuadrado (4)?",
-        options: ["Haar Cascade Classifier", "Aproximación de polígonos usando cv2.approxPolyDP sobre contornos", "Transformada de Fourier 2D", "Redes Neuronales Recurrentes"],
-        correctOptionIndex: 1,
-        explanation: "cv2.approxPolyDP reduce los puntos de un contorno basándose en la distancia a un polígono simplificado con Douglas-Peucker, permitiendo contar los vértices resultantes.",
-        syllabusConcept: "Clasificación de formas",
-        topicCode: "Q9-13"
+        text: "En herramientas de prueba de red (Material `informacion`), ¿qué parámetro de iperf3 permite abrir múltiples hilos paralelos para saturar un enlace de 1 Gbps y qué mide '-u'?",
+        options: [
+          "'-P <n>' para hilos paralelos y '-u' para cambiar a protocolo UDP (midiendo jitter y pérdida de paquetes).",
+          "'-n' para número de peticiones y '-u' para HTTP.",
+          "'-c' para cliente y '-u' para deshabilitar la red.",
+          "'-s' para servidor y '-u' para ejecutar en segundo plano."
+        ],
+        correctOptionIndex: 0,
+        explanation: "En iperf3, '-P <n>' ejecuta n hilos TCP en paralelo para superar límites de ventana de socket, mientras que '-u' conmuta a UDP permitiendo medir jitter y datagramas perdidos.",
+        syllabusConcept: "Herramientas GCP & Benchmarking",
+        topicCode: "TEMA 6"
       },
       {
         id: 14,
-        text: "Al monitorizar datos analógicos seriales en un script de Python, ¿qué librería se usa comúnmente para graficar en tiempo real las variables leídas?",
-        options: ["TensorFlow", "FastAPI", "Matplotlib (en modo interactivo plt.ion())", "PySerial"],
-        correctOptionIndex: 2,
-        explanation: "Matplotlib con plt.ion() habilita el modo interactivo que permite actualizar dinámicamente gráficos de sensores sin bloquear la consola de lectura.",
-        syllabusConcept: "Monitoreo con Gráficas",
-        topicCode: "Q11-12"
+        text: "¿Cuáles son las 4 etapas del ciclo iterativo de Diseño Centrado en el Usuario (DCU) según la ISO 9241-210?",
+        options: [
+          "1. Entender contexto de uso ➔ 2. Especificar requisitos ➔ 3. Producir soluciones de diseño ➔ 4. Evaluar diseños contra requisitos.",
+          "1. Wireframes ➔ 2. Codificación ➔ 3. Pruebas unitarias ➔ 4. Despliegue.",
+          "1. Elicitación ➔ 2. CMMI L3 ➔ 3. ISO 27001 ➔ 4. ITIL.",
+          "1. Plan ➔ 2. Do ➔ 3. Check ➔ 4. Act."
+        ],
+        correctOptionIndex: 0,
+        explanation: "La norma ISO 9241-210 define el ciclo iterativo del DCU en 4 fases: Comprender contexto de uso, Especificar requisitos del usuario, Producir soluciones de diseño (prototipado) y Evaluar diseños contra requisitos.",
+        syllabusConcept: "Diseño Centrado en el Usuario",
+        topicCode: "TEMA 7"
       },
       {
         id: 15,
-        text: "¿Qué tipo de filtro SciPy se utiliza habitualmente para suavizar una señal ruidosa eliminando los componentes de alta frecuencia?",
-        options: ["Filtro Pasa-Altos (High-Pass)", "Filtro Pasa-Bajos (Low-Pass)", "Filtro Rechaza-Banda (Band-Stop)", "Transformada FFT"],
+        text: "¿Cuál es la especificación física y resolución del Convertidor Analógico-Digital (ADC) del microcontrolador ATmega328P en una placa Arduino Uno R3?",
+        options: [
+          "ADC de 8 bits (valores 0 a 255) en 4 pines digitales.",
+          "ADC de 10 bits (valores 0 a 1023) en 6 pines analógicos (A0 a A5).",
+          "ADC de 16 bits (valores 0 a 65535) en el puerto USB ATmega16U2.",
+          "ADC de 32 bits en el oscilador de cristal de 16 MHz."
+        ],
         correctOptionIndex: 1,
-        explanation: "Un filtro pasa-bajos Butterwoth atenúa las frecuencias por encima de la frecuencia de corte definida, eliminando ruidos rápidos de alta frecuencia sin alterar el desfase de fase con filtfilt.",
-        syllabusConcept: "Filtros Pasa-Bajos",
-        topicCode: "Q10-15"
+        explanation: "El ATmega328P del Arduino Uno posee un ADC interno de 10 bits de resolución conectado a 6 pines analógicos (A0-A5), convirtiendo voltajes de 0-5V en valores enteros de 0 a 1023.",
+        syllabusConcept: "Hardware & Arduino",
+        topicCode: "TEMA 8"
       },
       {
         id: 16,
-        text: "¿Qué clasificador pre-entrenado basado en machine learning clásico utiliza OpenCV comúnmente para detectar la presencia y posición de rostros en tiempo real?",
-        options: ["SciPy Butter Filter", "Haar Cascade Classifier (Cascada de Haar)", "K-Nearest Neighbors", "Linear Regression"],
+        text: "Para ejecutar inferencia de redes neuronales en microcontroladores con poca RAM (TinyML), ¿qué transformación aplica TensorFlow Lite for Microcontrollers?",
+        options: [
+          "Aumenta la precisión a flotantes de 64 bits (float64).",
+          "Aplica Cuantificación Lineal INT8 (r = S · (q - Z)) convirtiendo pesos flotantes de 32 bits a enteros de 8 bits.",
+          "Exporta el modelo como script de PySerial.",
+          "Compila el modelo utilizando clasificadores en cascada de Haar en OpenCV."
+        ],
         correctOptionIndex: 1,
-        explanation: "Los clasificadores Haar Cascades son modelos de Viola-Jones basados en rasgos rectangulares rápidos de evaluar a través de la Imagen Integral O(1).",
-        syllabusConcept: "Detección de Rostros",
-        topicCode: "Q16"
+        explanation: "TensorFlow Lite para Microcontroladores utiliza cuantificación lineal INT8, mapeando los tensores float32 a enteros int8, reduciendo el consumo de RAM en hasta un 75% manteniendo alta precisión.",
+        syllabusConcept: "TensorFlow & AI Edge",
+        topicCode: "TEMA 8"
       }
     ];
   }

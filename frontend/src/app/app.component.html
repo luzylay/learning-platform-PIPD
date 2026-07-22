@@ -6,24 +6,28 @@
     </div>
     
     <nav class="app-nav">
-      <a routerLink="/dashboard" routerLinkActive="active-link" class="nav-item">
-        <i class="fa-solid fa-chart-line"></i> Dashboard
+      <a routerLink="/dashboard" routerLinkActive="active-link" class="nav-item nav-primary">
+        <i class="fa-solid fa-book-open"></i> Temario OIT 1
       </a>
-      <a routerLink="/quantum" routerLinkActive="active-link" class="nav-item">
-        <i class="fa-solid fa-atom"></i> Cuántica
+      <a routerLink="/exam" routerLinkActive="active-link" class="nav-item nav-primary">
+        <i class="fa-solid fa-file-signature"></i> Examen Práctico
       </a>
-      <a routerLink="/signal" routerLinkActive="active-link" class="nav-item">
-        <i class="fa-solid fa-wave-square"></i> Señales
+      <a routerLink="/ports" routerLinkActive="active-link" class="nav-item nav-primary">
+        <i class="fa-solid fa-network-wired"></i> Referencia de Puertos
       </a>
-      <a routerLink="/vision" routerLinkActive="active-link" class="nav-item">
-        <i class="fa-solid fa-eye"></i> Visión IA
-      </a>
-      <a routerLink="/exam" routerLinkActive="active-link" class="nav-item">
-        <i class="fa-solid fa-file-signature"></i> Examen
-      </a>
-      <a routerLink="/ports" routerLinkActive="active-link" class="nav-item">
-        <i class="fa-solid fa-network-wired"></i> Puertos
-      </a>
+      <span class="nav-separator">|</span>
+      <div class="nav-demo-group">
+        <span class="demo-label"><i class="fa-solid fa-flask"></i> Demos Python:</span>
+        <a routerLink="/quantum" routerLinkActive="active-link" class="nav-item nav-secondary" title="Simulación Cuántica Python">
+          <i class="fa-solid fa-atom"></i> Cuántica
+        </a>
+        <a routerLink="/signal" routerLinkActive="active-link" class="nav-item nav-secondary" title="Análisis de Señales SciPy">
+          <i class="fa-solid fa-wave-square"></i> Señales
+        </a>
+        <a routerLink="/vision" routerLinkActive="active-link" class="nav-item nav-secondary" title="Visión OpenCV">
+          <i class="fa-solid fa-eye"></i> Visión IA
+        </a>
+      </div>
     </nav>
   </div>
 </header>
